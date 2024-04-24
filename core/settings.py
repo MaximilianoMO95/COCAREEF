@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
+
     'apps.users',
 ]
 
@@ -114,6 +114,18 @@ USE_I18N = True
 
 USE_TZ = True
 
+# Urls
+# LOGIN_URL = '/account/login/'
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
+
+# Formats
+USE_L10N = False
+DATE_FORMAT = 'd-m-Y'
+DATE_INPUT_FORMATS = ['%d-%m-%Y']
+
+# Users
+AUTH_USER_MODEL = 'users.User'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
