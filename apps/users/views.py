@@ -19,7 +19,7 @@ class UserRegistrationView(View):
             return redirect('index')
 
         form = UserRegistrationForm()
-        return render(request, self.template_name, {'form': form})
+        return render(request, self.template_name, { 'form': form })
 
     def post(self, request):
         if request.user.is_authenticated:
@@ -41,4 +41,4 @@ class UserRegistrationView(View):
 
             return redirect('index')
 
-        return render(request, self.template_name, {'form': form})
+        return render(request, self.template_name, { 'form': form })

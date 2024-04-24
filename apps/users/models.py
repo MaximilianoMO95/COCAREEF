@@ -10,4 +10,4 @@ class User(AbstractUser):
 
 class Customer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    dni = models.CharField(max_length=60, verbose_name='DNI', blank=False)
+    dni = models.CharField(max_length=15, verbose_name='DNI', blank=False)
