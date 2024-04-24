@@ -8,6 +8,28 @@
 {% endblock head %}
 
 {% block content %}
-<main>
+<main class="container">
+    <div class="row">
+        <div class="col-lg-5 col-md-12 banner-bg position-relative"></div>
+
+        <div class="glass-container col-lg-7 col-md-12">
+            <form class="row gy-4 p-5" method="post">
+                <h2 class="text-align-center mt-3">Registrate</h2>
+
+                {% csrf_token %}
+                {% for field in form %}
+                    <div>
+                            {{ field.label_tag }}
+                            {{ field }}
+                            {% if field.errors %}
+                                    <small class="error">{{ field.errors|striptags  }}</small>
+                            {% endif %}
+                    </div>
+                {% endfor %}
+
+                <input type="submit" class="mt-5" value="Registrarse">
+            </form>
+        </div>
+    </div>
 </main>
 {% endblock content %}
