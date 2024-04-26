@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Hotel Reef - Catalogo De Habitaciones{% endblock title %}
+
+{% block head %}
+<style>
+    main {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100vw;
+        height: 100vh;
+    }
+</style>
+{% endblock head %}
+
+{% block content %}
+<main class="background-bg">
+    <div class="glass-container">
+        {% if object_list %}
+            {% for room in object_list %}
+                <h1> {{ room.name }} </p>
+                <h2> {{ room.description }} </h2>
+            {% endfor %}
+        {% endif %}
+    </div>
+</main>
+{% endblock content %}
