@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+
+{% block title %}Hotel Reef - Catalogo De Habitaciones{% endblock title %}
+
+{% block head %}
+<style>
+    main {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100vw;
+        min-height: 100vh;
+    }
+
+    .card {
+        display: flex;
+        background: var(--bg-primary, #FFF);
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+        gap: 1em;
+        padding: 0;
+
+        & img {
+            width: 100%;
+            aspect-ratio: 2 / 1.5;
+        }
+
+        & .card-body {
+            padding: 1em;
+            display: flex;
+            gap: 1em;
+        }
+
+        & :is(a, button) {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            background: var(--btn-primary-bg, darkblue);
+            color: var(--btn-color-primary);
+            text-decoration: none;
+            border: none;
+            border-radius: 0.25em;
+            padding: 0.5em 1em;
+        }
+    }
+
+    .card-list-ctn {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        align-items: center;
+        gap: 1.5em;
+    }
+
+    .title {
+        display: flex;
+        color: var(--title-color, #FFF);
+        width: 100vw;
+        padding-left: 5vw;
+        margin-bottom: 5vw;
+    }
+</style>
+{% endblock head %}
+
+{% block content %}
+<main class="background-bg">
+    <div class="glass-container">
+        <h1 class="title">Catalogo De Habitaciones</h1>
+
+        {% if object_list %}
+            <div class="card-list-ctn">
+            {% for room in object_list %}
+                <div class="card">
+                    <img alt="{{room.description}}" src="https://picsum.photos/200" />
+                    <div class="card-body">
+                        <div>
+                            <h1> {{ room.name }} </p>
+                            <h2> {{ room.description }} </h2>
+                        </div>
+                        <a role="button" href="#">Reservar Habitacion</a>
+                    </div>
+                </div>
+            {% endfor %}
+            </div>
+        {% else %}
+            <h1>Can't find any room</h1>
+        {% endif %}
+    </div>
+</main>
+{% endblock content %}
