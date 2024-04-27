@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %}Drunk Ninja - Login{% endblock title %}
+
+{% block content %}
+<main class="container background-bg">
+  <div class="row justify-content-center align-items-center min-vh-100">
+      <div class="glass-container row justify-content-center align-items-center col-lg-4 col-md-6">
+          <div class="login-container">
+              <img class="star" src="/static/img/star.png" alt="Imagen de estrella">
+              <img class="coral" src="/static/img/coral.png" alt="Imagen de coral">
+              <img class="logo" src="/static/img/Logo1.png" alt="Imagen de logo">
+              <form class="row flex-column gy-4 p-5" method="post">
+                  <h2 class="acceso">ACCESO</h2>
+                  {% if messages %}
+                    <div class="error-container">
+                        {% for message in messages %}
+                            <div id="error-message" class="alert alert-danger" role="alert">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                  {% endif %}
+           
+                  {% csrf_token %}
+                  <div class="input-group">
+                      <label for="username">USUARIO</label>
+                      {{ form.username }}
+                      {% if form.username.errors %}
+                          <small class="error">{{ form.username.errors|striptags }}</small> 
+                      {% endif %}
+                  </div>
+                  <div class="input-group">
+                      <label for="password">CONTRASEÑA</label>
+                      {{ form.password }}
+                      {% if form.password.errors %}
+                          <small class="error">{{ form.password.errors|striptags }}</small> 
+                      {% endif %}
+                  </div>
+                  <div >
+                      <input type="submit" value="Iniciar Sesion" class="boton">
+                      <input type="submit" value="Registrarse" class="boton boton-registro">
+                      <div class="d-flex justify-content-between">
+                      </div>
+                  </div>
+              </form>
+          </div>
+      </div>
+  </div>
+</main>
+
+{% endblock content %}
