@@ -1,7 +1,12 @@
 :root {
     --glass-bg: rgba(0, 0, 0, 0.8);
+    --glass-text-color: #FFFFFF;
+
     --bg-primary: #FFFFFF;
+    --bg-primary: #FFFFFF;
+
     --text-color-primary: #000000;
+
     --btn-primary-bg: #3333DD;
     --btn-color-primary: #FFFFFF;
 }
@@ -63,6 +68,7 @@ span:has(svg) {
 .glass-container {
     display: flex;
     background: var(--glass-bg);
+    color: var(--glass-text-color);
     border-radius: 0.3em;
     flex-direction: column;
     justify-content: center;
