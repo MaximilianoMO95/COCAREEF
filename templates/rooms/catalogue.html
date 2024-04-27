@@ -54,12 +54,22 @@
         align-items: center;
         gap: 1.5em;
     }
+
+    .title {
+        display: flex;
+        color: var(--title-color, #FFF);
+        width: 100vw;
+        padding-left: 5vw;
+        margin-bottom: 5vw;
+    }
 </style>
 {% endblock head %}
 
 {% block content %}
 <main class="background-bg">
     <div class="glass-container">
+        <h1 class="title">Catalogo De Habitaciones</h1>
+
         {% if object_list %}
             <div class="card-list-ctn">
             {% for room in object_list %}
@@ -74,7 +84,7 @@
                     </div>
                 </div>
             {% endfor %}
-            <div>
+            </div>
         {% else %}
             <h1>Can't find any room</h1>
         {% endif %}
