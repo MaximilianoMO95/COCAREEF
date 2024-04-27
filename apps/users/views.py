@@ -1,15 +1,22 @@
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import PermissionRequiredMixin
-from django.utils.decorators import method_decorator
 from django.views import View
 from django.contrib.auth.views import LoginView
 from django.contrib.auth import login
 from django.contrib.auth.models import Group
 from django.shortcuts import render, redirect
+from django.contrib import messages
 
-
-from .forms import UserRegistrationForm
+from .forms import (UserRegistrationForm, UserLoginForm)
 from .models import Customer
+
+class UserLoginView(LoginView):
+    template_name = 'users/login.html'
+    form_class = UserLoginForm
+
+    def form_invalid(self, form):
+        response = super().form_invalid(form)
+        messages.error(self.request, "Credenciales invalidadas")
+        return response
+
 
 class UserRegistrationView(View):
     template_name = 'users/signin.html'
