@@ -4,6 +4,7 @@ from .forms import (UserLoginForm)
 from django.shortcuts import render
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
+from django.views.generic import TemplateView
 
 
 
@@ -16,4 +17,6 @@ class UserLoginView(LoginView):
         messages.error(self.request, "Credenciales invalidadas")  
         return response
    
+class VistaAdminView(TemplateView):
+    template_name = 'users/vistaadmin.html'
 

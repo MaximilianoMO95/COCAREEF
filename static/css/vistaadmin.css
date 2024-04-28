@@ -1,0 +1,168 @@
+.admin-container {
+    width: 700px; 
+    margin: 0 auto; 
+    height: 30vh; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center; 
+    background-color: rgba(0, 0, 0, 0.541); 
+    padding: 15rem; 
+    border-radius: 10px; 
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); 
+}
+
+/* titulo*/
+.bienvenido {
+    font-size: 2rem; 
+    color: #fff;
+    text-align: center;
+    margin-bottom: 700px; 
+    margin-left: -140px;
+}
+
+/* Estilos para las tarjetas en la página vistaadmin.html */
+
+.card {
+    background-color: rgba(0, 0, 0, 0.541);
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    color: #fff;
+    height: 170px;
+    width: 320px;
+    margin: 20px;
+    margin-bottom: 40px;
+    margin-right: 40px;
+
+    display: flex; 
+    flex-direction: column; 
+    justify-content: flex-end; 
+    padding: 20px;
+}
+
+
+.card-title {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: #fff;
+    text-align: center;
+    margin-bottom: 150px;
+}
+
+/* Estilo para el texto */
+
+.card-text {
+    
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    color: #fff;
+    text-align: center; 
+}
+
+/* tarjeta usuario*/
+
+.card-nuevo-usuario .card-body {
+    background-image: url('/static/img/newuser.png'); 
+    background-size: contain; 
+    background-position: center; 
+    background-position-y: 60px; 
+    background-position-x: 0px; 
+    background-repeat: no-repeat; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+.card-nuevo-usuario {
+    background-color: #a8a1ada8; 
+}
+
+.card-nuevo-usuario:hover {
+    background-color: #a8a1adfd;
+}
+
+/* tarjeta editar usuario */
+
+.card-editar-usuario .card-body {
+    background-image: url('/static/img/edituser.png'); 
+    background-size: contain; 
+    background-position: center;
+    background-position-y: 60px; 
+    background-position-x: 13px; 
+    background-repeat: no-repeat; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.card-editar-usuario {
+    background-color: #9b6554a1; 
+}
+
+.card-editar-usuario:hover {
+    background-color: #9b6554;
+}
+
+/* tarjeta modificar reserva */
+
+.card-modificar-reserva .card-body {
+    background-image: url('/static/img/beed.png'); 
+    background-size: contain; 
+    background-position: center;
+    background-position-y: 60px; 
+    background-repeat: no-repeat; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.card-modificar-reserva{
+    background-color: #a5874693; 
+}
+
+.card-modificar-reserva:hover {
+    background-color: #a58746;
+}
+
+/* tarjeta catalogo habitaciones */
+
+.card-catalogo-habitaciones .card-body {
+    background-image: url('/static/img/catalogo.png'); 
+    background-size: contain; 
+    background-position: center; 
+    background-position-y: 60px; 
+    background-repeat: no-repeat; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.card-catalogo-habitaciones {
+    background-color: #6677a088; 
+}
+
+.card-catalogo-habitaciones:hover {
+    background-color: #6677a0;
+}
+
+.btn-primary {
+    background-color: #56465a;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 1.2rem;
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+}
+
+.btn-primary:hover {
+    background-color: #78627e;
+}
+
+.card-link {
+    text-decoration: none; 
+    color: inherit; 
+}

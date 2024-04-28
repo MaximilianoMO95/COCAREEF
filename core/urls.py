@@ -18,9 +18,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from apps.users.views import UserLoginView
+from apps.users.views import VistaAdminView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('login/', UserLoginView.as_view(), name='login'),
+    path('vistaadmin/', VistaAdminView.as_view(), name='vista_admin'),
     
 ]
