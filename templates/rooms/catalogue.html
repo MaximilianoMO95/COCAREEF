@@ -15,11 +15,14 @@
     .card {
         display: flex;
         background: var(--bg-primary, #FFF);
+        color: var(--text-color-primary);
         flex-direction: column;
         justify-content: space-around;
         align-items: center;
+        flex-wrap: wrap;
         gap: 1em;
         padding: 0;
+        min-width: 320px;
 
         & img {
             width: 100%;
@@ -63,6 +66,17 @@
         <h1 class="title">Catalogo De Habitaciones</h1>
 
         {% if object_list %}
+            <form method="get" action="{% url 'rooms:catalogue' %}">
+                <label for="room_type">Filter by Room Type:</label>
+                <select name="room_type_slug" id="room_type">
+                    <option value="all">All</option>
+                    {% for room_type in room_types %}
+                        <option value="{{ room_type.name }}" {% if room_type.name == request.GET.room_type_slug %} selected {% endif %}>{{ room_type.name }}</option>
+                    {% endfor %}
+                </select>
+                <button type="submit">Apply Filter</button>
+            </form>
+
             <div class="card-list-ctn">
             {% for room in object_list %}
                 <div class="card">
@@ -70,7 +84,7 @@
                     <div class="card-body">
                         <div>
                             <h1> {{ room.name }} </p>
-                            <h2> {{ room.description }} </h2>
+                            <h2>$ {{ room.price }} </h2>
                         </div>
                         <a role="button" href="{% url 'reservations:checkout' %}">Reservar Habitacion</a>
                     </div>
