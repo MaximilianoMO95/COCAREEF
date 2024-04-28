@@ -8,7 +8,7 @@
     --text-color-primary: #000000;
 
     --btn-primary-bg: #3333DD;
-    --btn-color-primary: #FFFFFF;
+    --btn-primary-color: #FFFFFF;
 }
 
 html {
@@ -57,6 +57,14 @@ span:has(svg) {
 }
 
 /* Utility Classes */
+.title {
+    display: flex;
+    color: var(--title-color, #FFF);
+    width: 100vw;
+    padding-left: 5vw;
+    margin-bottom: 5vw;
+}
+
 .error {
     color: #FF7A7A;
 }

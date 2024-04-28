@@ -38,7 +38,7 @@
             justify-content: center;
             font-weight: bold;
             background: var(--btn-primary-bg, darkblue);
-            color: var(--btn-color-primary);
+            color: var(--btn-primary-color);
             text-decoration: none;
             border: none;
             border-radius: 0.25em;
@@ -54,14 +54,6 @@
         align-items: center;
         gap: 1.5em;
     }
-
-    .title {
-        display: flex;
-        color: var(--title-color, #FFF);
-        width: 100vw;
-        padding-left: 5vw;
-        margin-bottom: 5vw;
-    }
 </style>
 {% endblock head %}
 
@@ -74,13 +66,13 @@
             <div class="card-list-ctn">
             {% for room in object_list %}
                 <div class="card">
-                    <img alt="{{room.description}}" src="https://picsum.photos/200" />
+                    <img alt="{{ room.description }}" src="https://picsum.photos/200" />
                     <div class="card-body">
                         <div>
                             <h1> {{ room.name }} </p>
                             <h2> {{ room.description }} </h2>
                         </div>
-                        <a role="button" href="#">Reservar Habitacion</a>
+                        <a role="button" href="{% url 'reservations:checkout' %}">Reservar Habitacion</a>
                     </div>
                 </div>
             {% endfor %}
