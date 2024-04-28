@@ -15,11 +15,14 @@
     .card {
         display: flex;
         background: var(--bg-primary, #FFF);
+        color: var(--text-color-primary);
         flex-direction: column;
         justify-content: space-around;
         align-items: center;
+        flex-wrap: wrap;
         gap: 1em;
         padding: 0;
+        min-width: 320px;
 
         & img {
             width: 100%;
@@ -89,7 +92,7 @@
                     <div class="card-body">
                         <div>
                             <h1> {{ room.name }} </p>
-                            <h2> {{ room.description }} </h2>
+                            <h2>$ {{ room.price }} </h2>
                         </div>
                         <a role="button" href="#">Reservar Habitacion</a>
                     </div>
