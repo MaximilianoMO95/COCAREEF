@@ -4,9 +4,9 @@ from django.contrib.auth import login
 from django.contrib.auth.models import Group
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from django.views.generic import ListView, TemplateView
+from django.views.generic import (ListView, TemplateView)
 
-from .forms import (EmployeeEditForm, UserRegistrationForm, UserLoginForm)
+from .forms import (EmployeeEditForm, EmployeeRegistrationForm, UserRegistrationForm, UserLoginForm)
 from .models import (Customer, Employee)
 
 class UserLoginView(LoginView):
@@ -76,12 +76,9 @@ class EmployeeRegistrationView(View):
     def post(self, request):
         form = EmployeeRegistrationForm(request.POST)
         if form.is_valid():
-
             user = form.save(commit=False)
             user.email = form.cleaned_data['email']
             user.save()
-
-
 
             employee_group, _ = Group.objects.get_or_create(name='employee')
             user.groups.add(employee_group)
@@ -100,13 +97,12 @@ class EmployeeRegistrationView(View):
 
 
 class EmployeeListView(ListView):
-    template_name = 'users/employee_list.html'
     model = Employee
-    context_object_name = 'employee_list'
+    template_name = 'users/employee_list.html'
 
-    def get_queryset(self):
-        return Employee.objects.all()
-
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context
 
 
 class EmployeeEditView(View):

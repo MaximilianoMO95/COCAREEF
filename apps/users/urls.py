@@ -9,5 +9,5 @@ urlpatterns = [
     path('admin-panel/', AdminPanelView.as_view(), name='admin-panel'),
     path('employee/', EmployeeRegistrationView.as_view(), name='employee'),
     path('employee-list/', EmployeeListView.as_view(), name='employee_list'),
-    path('employee_edit/<int:rut>', EmployeeEditView.as_view(), name='employee_edit')
+    path('employee-edit/<int:rut>', EmployeeEditView.as_view(), name='employee_edit')
 ]

@@ -5,13 +5,16 @@
 {% block content %}
 <main class="background-bg">
     <div class="employe-container">
-        <h1>Employee List</h1>
-        <ul>
-        {% for employee in employee_list %}
-        <li><a href="{% url 'users:employee_edit' employee.rut %}">{{ employee.user.first_name }} {{ employee.user.last_name }}</a></li>
-
-        {% endfor %}
-        </ul>
+        {% if object_list %}
+            <h1>Employee List</h1>
+            <ul>
+            {% for employee in object_list %}
+                <li><a href="{% url 'users:employee_edit' employee.rut %}">{{ employee.user.first_name }} {{ employee.user.last_name }}</a></li>
+            {% endfor %}
+            </ul>
+        {% else %}
+            <h1>No Empleados</h1>
+        {% endif %}
     </div>
 </main>
 {% endblock content %}
