@@ -4,6 +4,7 @@ from django.contrib.auth import login
 from django.contrib.auth.models import Group
 from django.shortcuts import render, redirect
 from django.contrib import messages
+from django.views.generic import TemplateView
 
 from .forms import (UserRegistrationForm, UserLoginForm)
 from .models import Customer
@@ -16,6 +17,10 @@ class UserLoginView(LoginView):
         response = super().form_invalid(form)
         messages.error(self.request, "Credenciales invalidadas")
         return response
+
+
+class VistaAdminView(TemplateView):
+    template_name = 'users/vistaadmin.html'
 
 
 class UserRegistrationView(View):
