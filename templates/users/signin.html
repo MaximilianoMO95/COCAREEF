@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+
+{% block title %}Hotel Reef - Registro{% endblock title %}
+
+{% block head %}
+<style>
+    main {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100vw;
+        height: 100vh;
+    }
+
+    form {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: start;
+        gap: 1em;
+
+        width: 80%;
+
+        & input {
+            width: 100%;
+            padding: 0.5em;
+        }
+
+        & input[type="submit"] {
+            margin-top: 3em;
+        }
+    }
+
+    .form-field {
+        flex: 1 1 40%;
+        display: flex;
+        flex-direction: column;
+        gap: 0.45em;
+    }
+
+    .register-icon {
+        width: 350px;
+        height: 350px;
+    }
+
+    .tab-nav {
+        display: flex;
+        flex-direction: row;
+        justify-content: start;
+        align-items: center;
+        gap: 1em;
+        width: 100%;
+        padding-left: 2em;
+    }
+</style>
+{% endblock head %}
+
+{% block content %}
+<main class="background-bg">
+    <div class="glass-container">
+        <div class="tab-nav">
+            <a href="{% url 'users:signin' %}" aria-label="Go Back" title="Go Back">
+                <span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="3em" height="3em" viewBox="0 0 24 24"><path fill="currentColor" d="M17.51 3.87L15.73 2.1L5.84 12l9.9 9.9l1.77-1.77L9.38 12z"/></svg>
+                </span>
+            </a>
+            <h1>Registrate</h1>
+        </div>
+
+        <span aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" class="register-icon" width="1em" height="1em" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" d="M18.5 20.247V16S16 14.5 12 14.5S5.5 16 5.5 16v4.247M1.5 12C1.5 6.201 6.201 1.5 12 1.5S22.5 6.201 22.5 12S17.799 22.5 12 22.5S1.5 17.799 1.5 12Zm10.426.5S8.5 10.68 8.5 8c0-1.933 1.569-3.5 3.504-3.5A3.495 3.495 0 0 1 15.5 8c0 2.68-3.426 4.5-3.426 4.5z"/></svg>
+        </span>
+
+        <form class="row gy-4 p-5" method="post">
+            {% csrf_token %}
+            {% for field in form %}
+                <div class="form-field">
+                        {{ field.label_tag }}
+                        {{ field }}
+                        {% if field.errors %}
+                                <small class="error">{{ field.errors|striptags  }}</small>
+                        {% endif %}
+                </div>
+            {% endfor %}
+
+            <input type="submit" value="Registrarse">
+        </form>
+    </div>
+</main>
+{% endblock content %}

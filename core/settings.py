@@ -13,7 +13,6 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 from pathlib import Path
 import os
 
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -41,9 +40,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'apps.users',
-    
-    
-    
+    'apps.rooms',
+    'apps.webpay',
+    'apps.reservations',
 ]
 
 MIDDLEWARE = [
@@ -118,6 +117,18 @@ USE_I18N = True
 
 USE_TZ = True
 
+# Urls
+# LOGIN_URL = '/account/login/'
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
+
+# Formats
+USE_L10N = False
+DATE_FORMAT = 'd-m-Y'
+DATE_INPUT_FORMATS = ['%d-%m-%Y']
+
+# Users
+AUTH_USER_MODEL = 'users.User'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/

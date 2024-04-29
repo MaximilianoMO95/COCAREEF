@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}Hotel Reef - Checkout{% endblock title %}
+
+{% block head %}
+<style>
+    main {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100vw;
+        min-height: 100vh;
+    }
+
+    .reservation-checkout-form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        background: var(--bg-2);
+        padding: 2rem;
+        border: 0;
+        border-radius: var(--border-radius);
+
+        & input:is([type="submit"]) {
+                background: var(--btn-primary-bg);
+                color: var(--btn-primary-color);
+                padding: 0.5em 1em;
+                max-width: 350px;
+        }
+    }
+</style>
+{% endblock head %}
+
+{% block content %}
+<main>
+        <div class="glass-container">
+                <h1 class="title">Pago</h1>
+
+                <form method="post" action="{{ url }}" class="reservation-checkout-form">
+                        <h2>Total A Pagar: <b>{{ total_amount }}</b></h2>
+
+                        <input type="hidden" name="token_ws" value="{{ token_ws }}" />
+                        <input type="submit" value="Ir A Pagar" />
+                </form>
+        </div>
+</main>
+{% endblock content %}
