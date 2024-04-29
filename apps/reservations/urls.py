@@ -1,11 +1,11 @@
 from django.urls import path
-from .views import (ListReservationsView, PaymentResultView, CheckoutConfirmView, CheckoutCreateView)
+from .views import (ListReservationsView, PaymentResultView, OrderConfirmView, OrderCreateView)
 
 app_name = 'reservations'
 
 urlpatterns = [
     path('', ListReservationsView.as_view(), name='list_reservations'),
-    path('checkout/<int:room_id>', CheckoutCreateView.as_view(), name='checkout'),
-    path('payment/', CheckoutConfirmView.as_view(), name='payment'),
+    path('checkout/<int:room_id>', OrderCreateView.as_view(), name='checkout'),
+    path('payment/', OrderConfirmView.as_view(), name='payment'),
     path('result/', PaymentResultView.as_view(), name='payment_result'),
 ]

@@ -9,5 +9,10 @@ class Reservation(models.Model):
     start_date = models.DateField()
     days_of_stay = models.PositiveIntegerField()
 
-    def total_price(self):
-        return (self.room__price * 0.3)
+    is_paid = models.BooleanField(default=False)
+
+    def total_amount(self):
+        percent = 0.3
+        result = (self.room.price * self.days_of_stay) * percent
+
+        return int(result)
