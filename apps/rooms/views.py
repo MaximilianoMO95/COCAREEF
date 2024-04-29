@@ -66,3 +66,10 @@ class RoomUpdateView(View):
             return redirect('rooms:catalogue', room_id=room.id)
 
         return render(request, self.template_name, { 'form': form, 'room': room })
+
+
+def delete_room(request, room_id):
+    room = Room.objects.get(id=room_id)
+    room.delete()
+
+    return redirect('rooms:catalogue')

@@ -57,7 +57,7 @@
                 </div>
             {% endfor %}
 
-            <a role="button" href="#" class="btn-secundary">Eliminar</a>
+            <a role="button" href="{% url 'rooms:delete' room.id %}" class="btn-secundary">Eliminar</a>
             <button type="submit" class="btn-primary">Guardar Cambios</button>
         </form>
     </div>
