@@ -1,0 +1,14 @@
+.employe-container {
+    width: 40vw;
+    margin: 0 auto; 
+    height: auto; 
+    display: flex;
+    flex-direction: column; 
+    justify-content: center;
+    align-items: center;
+    text-align: center; 
+    background-color: rgba(0, 0, 0, 0.541); 
+    padding: 2rem; 
+    border-radius: 10px; 
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); 
+}
