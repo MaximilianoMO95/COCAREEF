@@ -4,10 +4,10 @@ from django.contrib.auth import login
 from django.contrib.auth.models import Group
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from django.views.generic import TemplateView
+from django.views.generic import ListView, TemplateView
 
 from .forms import (EmployeeEditForm, UserRegistrationForm, UserLoginForm)
-from .models import Customer
+from .models import (Customer, Employee)
 
 class UserLoginView(LoginView):
     template_name = 'users/login.html'
