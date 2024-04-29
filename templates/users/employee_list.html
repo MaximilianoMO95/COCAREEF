@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}Employee List{% endblock title %}
+
+{% block content %}
+<main class="background-bg">
+    <div class="employe-container">
+        <h1>Employee List</h1>
+        <ul>
+        {% for employee in employee_list %}
+        <li><a href="{% url 'users:employee_edit' employee.rut %}">{{ employee.user.first_name }} {{ employee.user.last_name }}</a></li>
+
+        {% endfor %}
+        </ul>
+    </div>
+</main>
+{% endblock content %}

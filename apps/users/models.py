@@ -7,6 +7,11 @@ class User(AbstractUser):
     last_name = models.CharField(max_length=30, verbose_name='Apellido', blank=False)
 
 
+class Employee(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    rut  = models.CharField(max_length=15, verbose_name='RUT', blank=False)
+
+
 class Customer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     dni = models.CharField(max_length=15, verbose_name='DNI', blank=False)

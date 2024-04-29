@@ -1,12 +1,12 @@
 from django.views import View
-from django.contrib.auth.views import (LoginView, reverse_lazy)
+from django.contrib.auth.views import LoginView
 from django.contrib.auth import login
 from django.contrib.auth.models import Group
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.views.generic import TemplateView
 
-from .forms import (UserRegistrationForm, UserLoginForm)
+from .forms import (EmployeeEditForm, UserRegistrationForm, UserLoginForm)
 from .models import Customer
 
 class UserLoginView(LoginView):
@@ -64,3 +64,63 @@ class UserRegistrationView(View):
             return redirect('rooms:catalogue')
 
         return render(request, self.template_name, { 'form': form })
+
+
+class EmployeeRegistrationView(View):
+    template_name = 'users/employee.html'
+
+    def get(self, request):
+        form = EmployeeRegistrationForm()
+        return render(request, self.template_name, { 'form': form })
+
+    def post(self, request):
+        form = EmployeeRegistrationForm(request.POST)
+        if form.is_valid():
+
+            user = form.save(commit=False)
+            user.email = form.cleaned_data['email']
+            user.save()
+
+
+
+            employee_group, _ = Group.objects.get_or_create(name='employee')
+            user.groups.add(employee_group)
+
+            employee = Employee.objects.create(
+                user=user,
+                rut=form.cleaned_data['rut']
+
+            )
+            employee.save()
+
+            login(request, user)
+            return redirect('users:employee_list')
+
+        return render(request, self.template_name, { 'form': form })
+
+
+class EmployeeListView(ListView):
+    template_name = 'users/employee_list.html'
+    model = Employee
+    context_object_name = 'employee_list'
+
+    def get_queryset(self):
+        return Employee.objects.all()
+
+
+
+class EmployeeEditView(View):
+    template_name = 'users/employee_edit.html'
+
+    def get(self, request, rut):
+        employee = Employee.objects.get(rut=rut)
+        form = EmployeeEditForm(instance=employee)
+        return render(request, self.template_name, {'form': form, 'employee': employee})
+
+    def post(self, request, rut):
+        employee = Employee.objects.get(rut=rut)
+        form = EmployeeEditForm(request.POST, instance=employee)
+        if form.is_valid():
+            form.save()
+            return redirect('users:employee_list')
+        return render(request, self.template_name, {'form': form, 'employee': employee})
