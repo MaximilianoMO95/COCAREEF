@@ -1,5 +1,4 @@
 from django import forms
-from apps.rooms.models import Room
 
 class ReservationForm(forms.Form):
     start_date = forms.DateField(widget=forms.SelectDateWidget)

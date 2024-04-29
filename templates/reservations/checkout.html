@@ -41,11 +41,31 @@
             {% csrf_token %}
             {{ form.as_p }}
 
-            <h2>Total A Pagar: <b>{{ room.price }}</b></h2>
+            <h2>Total: <b id="total">${{ room.price }}</b></h2>
 
-            <input type="hidden" name="token_ws" value="{{ token_ws }}" />
             <input type="submit" value="Ir A Pagar" />
         </form>
     </div>
 </main>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const daysOfStayField = document.querySelector('#{{form.days_of_stay.id_for_label}}');
+        const roomPrice = parseFloat('{{room.price}}');
+
+        // Function to calculate total price
+        function calculateTotalPrice() {
+            const daysOfStay = parseInt(daysOfStayField.value);
+            if (isNaN(daysOfStay) || daysOfStay <= 1) {
+                return;
+            }
+
+            const totalPrice = daysOfStay * roomPrice
+            document.querySelector('#total').innerHTML = totalPrice;
+        }
+
+        // Add event listeners to fields for triggering calculation
+        daysOfStayField.addEventListener('input', calculateTotalPrice);
+    });
+</script>
 {% endblock content %}
