@@ -1,5 +1,4 @@
 from django.views.generic import ListView
-from django.utils.text import slugify
 
 from apps.rooms.models import (Room, RoomType)
 
