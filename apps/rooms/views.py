@@ -13,6 +13,8 @@ class RoomCatalogueListView(ListView):
         if self.request.user.is_superuser:
             return ['rooms/admin/catalogue.html']
 
+        return self.template_name
+
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

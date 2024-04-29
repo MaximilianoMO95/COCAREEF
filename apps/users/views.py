@@ -1,5 +1,5 @@
 from django.views import View
-from django.contrib.auth.views import LoginView
+from django.contrib.auth.views import (LoginView, reverse_lazy)
 from django.contrib.auth import login
 from django.contrib.auth.models import Group
 from django.shortcuts import render, redirect
@@ -13,14 +13,24 @@ class UserLoginView(LoginView):
     template_name = 'users/login.html'
     form_class = UserLoginForm
 
+    def dispatch(self, request, *args, **kwargs):
+        if self.request.user.is_authenticated:
+            if request.user.is_superuser:
+                return redirect('users:admin-panel')
+
+            return redirect('rooms:catalogue')
+
+        return super().dispatch(request, *args, **kwargs)
+
+
     def form_invalid(self, form):
         response = super().form_invalid(form)
-        messages.error(self.request, "Credenciales invalidadas")
+        messages.error(self.request, 'Credenciales invalidadas')
         return response
 
 
-class VistaAdminView(TemplateView):
-    template_name = 'users/vistaadmin.html'
+class AdminPanelView(TemplateView):
+    template_name = 'users/admin/panel.html'
 
 
 class UserRegistrationView(View):
@@ -28,15 +38,15 @@ class UserRegistrationView(View):
 
     def get(self, request):
         if request.user.is_authenticated:
-            return redirect('index')
+            if request.user.is_superuser:
+                return redirect('users:admin-panel')
+
+            return redirect('rooms:catalogue')
 
         form = UserRegistrationForm()
         return render(request, self.template_name, { 'form': form })
 
     def post(self, request):
-        if request.user.is_authenticated:
-            return redirect('index')
-
         form = UserRegistrationForm(request.POST)
         if form.is_valid():
             user = form.save(commit=False)
@@ -51,6 +61,6 @@ class UserRegistrationView(View):
 
             login(request, user)
 
-            return redirect('index')
+            return redirect('rooms:catalogue')
 
         return render(request, self.template_name, { 'form': form })
