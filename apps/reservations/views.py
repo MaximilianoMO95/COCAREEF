@@ -1,25 +1,72 @@
 from urllib.parse import parse_qs
-from django.shortcuts import render
+from django.shortcuts import (HttpResponseRedirect, redirect, render, get_object_or_404)
+from django.utils.timezone import datetime
 from django.views import View
 from django.contrib.admin.options import method_decorator
 from django.contrib.auth.views import login_required
 from django.contrib.sites.shortcuts import get_current_site
 import django.http as http
+from django.views.generic import ListView
 
+from apps.rooms.models import Room
 from apps.webpay.views import WebpayAPI
 from .models import Reservation
+from .forms import ReservationForm
+
+#TODO: Clean up the mess
+#TODO: Add required permisitions
+
+@method_decorator(login_required, name='dispatch')
+class ListReservationsView(ListView):
+    model = Reservation
+    template_name = 'reservations/list_reservations.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context
+
+
+class ManageReservationView(View):
+    template_name = 'reservations/manage_reservations.html'
+
+
+@method_decorator(login_required, name='dispatch')
+class CheckoutCreateView(View):
+    template_name = 'reservations/checkout.html'
+
+    def get(self, request, room_id):
+        form = ReservationForm()
+        room = get_object_or_404(Room, id=room_id)
+        return render(request, self.template_name, { 'form': form, 'room': room })
+
+
+    def post(self, request, room_id):
+        form = ReservationForm(request.POST)
+
+        if form.is_valid():
+            # TODO: Check if room is available
+            is_room_available = True;
+            if is_room_available:
+                book_room(request, room_id)
+                return redirect('reservations:payment')
+            else:
+                form.add_error(None, 'Room is not available.')
+
+        room = get_object_or_404(Room, id=room_id)
+        return render(request, self.template_name, { 'form': form, 'room': room })
+
 
 # TODO: Add session id
-# TODO: Add reservation id
+# TODO: Check if room is not already booked
 #@method_decorator(login_required, name='dispatch')
-class RedirectPaymentView(View):
-    template_name = 'reservations/checkout.html'
+class CheckoutConfirmView(View):
+    template_name = 'payment/checkout.html'
 
     def get(self, request):
         order_id = 'hotel-reef-order-123'
         order_total_amount = 400
 
-        return_url = request.scheme + '://' + get_current_site(request).domain + '/result.html'
+        return_url = request.scheme + '://' + get_current_site(request).domain + '/payment/result.html'
         session_id = 123# request.session.session_key
 
         webpay = WebpayAPI()
@@ -34,7 +81,7 @@ class RedirectPaymentView(View):
             return http.JsonResponse({ 'message': 'Failed to create Webpay transaction' })
 
 
-#@method_decorator(login_required, name='dispatch')
+@method_decorator(login_required, name='dispatch')
 class PaymentResultView(View):
     template_name = 'reservations/payment_status.html'
 
@@ -56,3 +103,28 @@ class PaymentResultView(View):
             return render(request, self.template_name, { 'pay_status': pay_status })
         else:
             return http.JsonResponse('Failed to confirm Webpay transaction')
+
+
+@login_required
+def book_room(request, room_id):
+    room_instance = Room.objects.get(id=room_id)
+
+    if room_instance:
+        reservation, _ = Reservation.objects.get_or_create(
+            user = request.user,
+            room = room_instance,
+            start_date = datetime.now(),
+            days_of_stay = 2
+        )
+        reservation.save()
+        return redirect('reservation:checkout')
+
+    return HttpResponseRedirect(request.META['HTTP_REFERER'])
+
+
+@login_required
+def remove_booked_room(request, room_id):
+    room = Reservation.objects.get(id=room_id)
+    room.delete()
+
+    return HttpResponseRedirect(request.META['HTTP_REFERER'])

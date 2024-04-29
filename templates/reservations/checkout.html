@@ -34,15 +34,18 @@
 
 {% block content %}
 <main>
-        <div class="glass-container">
-                <h1 class="title">Pago</h1>
+    <div class="glass-container">
+        <h1 class="title">Pago</h1>
 
-                <form method="post" action="{{ url }}" class="reservation-checkout-form">
-                        <h2>Total A Pagar: <b>{{ total_amount }}</b></h2>
+        <form method="post" action="{{ url }}" class="reservation-checkout-form">
+            {% csrf_token %}
+            {{ form.as_p }}
 
-                        <input type="hidden" name="token_ws" value="{{ token_ws }}" />
-                        <input type="submit" value="Ir A Pagar" />
-                </form>
-        </div>
+            <h2>Total A Pagar: <b>{{ room.price }}</b></h2>
+
+            <input type="hidden" name="token_ws" value="{{ token_ws }}" />
+            <input type="submit" value="Ir A Pagar" />
+        </form>
+    </div>
 </main>
 {% endblock content %}

@@ -9,6 +9,8 @@
 
     --btn-primary-bg: #3333DD;
     --btn-primary-color: #FFFFFF;
+    --btn-secundary-bg: #222222;
+    --btn-secundary-color: #CCCCCC;
 }
 
 html {
@@ -56,7 +58,47 @@ span:has(svg) {
     align-items: center;
 }
 
-/* Utility Classes */
+/************************** UTILITY CLASSES **************************/
+.text-align-center { text-align: center; }
+.d-flex { display: flex; }
+.d-flex.col { flex-direction: column; }
+.d-flex.row { flex-direction: row; }
+.d-flex.gap-1 { gap: 1em; }
+.d-flex.gap-2 { gap: 2em; }
+.d-flex.gap-3 { gap: 3em; }
+.d-flex.gap-4 { gap: 4em; }
+.d-flex.gap-5 { gap: 5em; }
+
+.btn-primary {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    background: var(--btn-primary-bg, darkblue);
+    color: var(--btn-primary-color);
+    text-decoration: none;
+    border: none;
+    border-radius: 0.25em;
+    padding: 0.5em 1em;
+
+    min-width: 200px;
+}
+
+.btn-secundary {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: normal;
+    background: none;
+    border: 0.15em solid var(--btn-secundary-bg, darkgray);
+    border-radius: 0.25em;
+    color: var(--btn-secundary-color);
+    text-decoration: none;
+    padding: 0.5em 1em;
+
+    min-width: 150px;
+}
+
 .title {
     display: flex;
     color: var(--title-color, #FFF);
@@ -67,10 +109,6 @@ span:has(svg) {
 
 .error {
     color: #FF7A7A;
-}
-
-.text-align-center {
-    text-align: center;
 }
 
 .glass-container {
@@ -102,6 +140,7 @@ span:has(svg) {
     min-height: 100vh;
     width: 100vw;
 }
+/************************** END UTILITY CLASSES **************************/
 
 /* text box */
 input[type="text"],

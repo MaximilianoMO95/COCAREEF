@@ -8,3 +8,6 @@ class Reservation(models.Model):
     room = models.ForeignKey(Room, on_delete=models.CASCADE)
     start_date = models.DateField()
     days_of_stay = models.PositiveIntegerField()
+
+    def total_price(self):
+        return (self.room__price * 0.3)
