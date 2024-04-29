@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Hotel Reef - Catalogo De Habitaciones{% endblock title %}
+{% block title %}Hotel Reef - Administrar Catalogo De Habitaciones{% endblock title %}
 
 {% block head %}
 <style>
@@ -51,6 +51,7 @@
 <main class="background-bg">
     <div class="glass-container">
         <h1 class="title">Catalogo De Habitaciones</h1>
+        <a role="button" class="btn-primary" href="{% url 'rooms:create' %}">Nueva Habitacion</a>
 
         {% if object_list %}
             <form method="get" action="{% url 'rooms:catalogue' %}">
@@ -74,13 +75,11 @@
                             <h1> {{ room.name }} </h1>
                             <h2>$ {{ room.price }} </h2>
                         </div>
-                        <a role="button" class="btn-primary" href="{% url 'reservations:checkout' room.id %}">Reservar Habitacion</a>
+                        <a role="button" class="btn-primary" href="{% url 'rooms:edit' room.id %}">Editar</a>
                     </div>
                 </div>
             {% endfor %}
             </div>
-        {% else %}
-            <h1>Can't find any room</h1>
         {% endif %}
     </div>
 </main>

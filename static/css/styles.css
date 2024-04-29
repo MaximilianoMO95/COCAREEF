@@ -9,6 +9,8 @@
 
     --btn-primary-bg: #3333DD;
     --btn-primary-color: #FFFFFF;
+    --btn-secundary-bg: #222222;
+    --btn-secundary-color: #CCCCCC;
 }
 
 html {
@@ -78,6 +80,23 @@ span:has(svg) {
     border: none;
     border-radius: 0.25em;
     padding: 0.5em 1em;
+
+    min-width: 200px;
+}
+
+.btn-secundary {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: normal;
+    background: none;
+    border: 0.15em solid var(--btn-secundary-bg, darkgray);
+    border-radius: 0.25em;
+    color: var(--btn-secundary-color);
+    text-decoration: none;
+    padding: 0.5em 1em;
+
+    min-width: 150px;
 }
 
 .title {
