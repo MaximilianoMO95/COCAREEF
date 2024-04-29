@@ -22,4 +22,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('apps.users.urls', namespace='users')),
     path('rooms/', include('apps.rooms.urls', namespace='rooms')),
+    path('reservations/', include('apps.reservations.urls', namespace='reservations')),
 ]

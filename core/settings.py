@@ -41,6 +41,8 @@ INSTALLED_APPS = [
 
     'apps.users',
     'apps.rooms',
+    'apps.webpay',
+    'apps.reservations',
 ]
 
 MIDDLEWARE = [
