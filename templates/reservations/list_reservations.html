@@ -27,20 +27,8 @@
         & .card-body {
             padding: 1em;
             display: flex;
+            flex-direction: column;
             gap: 1em;
-        }
-
-        & :is(a, button) {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            background: var(--btn-primary-bg, darkblue);
-            color: var(--btn-color-primary);
-            text-decoration: none;
-            border: none;
-            border-radius: 0.25em;
-            padding: 0.5em 1em;
         }
     }
 
@@ -74,10 +62,13 @@
                 <div class="card">
                     <div class="card-body">
                         <div>
-                            <h1> {{ reservation.start_date }} </p>
-                            <h2>Name: {{ reservation.user.email }} </h2>
+                            <h1>{{ reservation.start_date }}</h1>
+                            <h2>{{ reservation.room.name }}</h2>
                         </div>
-                        <a role="button" href="#">Reservar Habitacion</a>
+                        <div class="d-flex row gap-1">
+                            <a role="button" class="btn-primary" href="#">Editar</a>
+                            <a role="button" class="btn-primary" href="#">Eliminar</a>
+                        </div>
                     </div>
                 </div>
             {% endfor %}
