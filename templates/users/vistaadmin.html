@@ -1,13 +1,17 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}Hotel Reef - Vista Admin{% endblock title %}
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/vistaadmin.css' %}">
+{% endblock head %}
 
 {% block content %}
 <main class="container background-bg">
   <div class="row justify-content-center align-items-center min-vh-100">
       <div class="glass-container row justify-content-center align-items-center col-lg-8">
           <div class="admin-container">
-            <h2 class="bienvenido">Bienvenid@</h2> 
+            <h2 class="bienvenido">Bienvenid@</h2>
               <div class="row row-cols-1 row-cols-md-2 g-4">
                   <div class="col-md-6">
                       <a href="login.html" class="card-link">
