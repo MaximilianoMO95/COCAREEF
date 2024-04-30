@@ -4,14 +4,6 @@
 
 {% block head %}
 <style>
-    main {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 100vw;
-        min-height: 100vh;
-    }
-
     .card {
         display: flex;
         background: var(--bg-primary, #FFF);
@@ -30,9 +22,21 @@
         }
 
         & .card-body {
-            padding: 1em;
             display: flex;
+            flex-direction: column;
             gap: 1em;
+            padding: 1em;
+
+        }
+
+        & .info {
+            & h2 {
+                opacity: 0.6;
+            }
+        }
+
+        & :is(a, button) {
+            padding: 1.5em 4em;
         }
     }
 
@@ -40,9 +44,11 @@
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
-        justify-content: space-around;
-        align-items: center;
+        justify-content: center;
+        align-items: stretch;
         gap: 1.5em;
+
+        width: 100%;
     }
 </style>
 {% endblock head %}
@@ -50,11 +56,10 @@
 {% block content %}
 <main class="background-bg">
     <div class="glass-container">
-        <h1 class="title">Catalogo De Habitaciones</h1>
+        {% include 'navbar.html' with title='Catalogo De Habitaciones' %}
 
         {% if object_list %}
             <form method="get" action="{% url 'rooms:catalogue' %}">
-                {% csrf_token %}
                 <label for="room_type">Filter by Room Type:</label>
                 <select name="room_type_slug" id="room_type">
                     <option value="all">All</option>
@@ -65,16 +70,16 @@
                 <button type="submit">Apply Filter</button>
             </form>
 
-            <div class="card-list-ctn">
+            <div class="card-list-ctn mt-5">
             {% for room in object_list %}
                 <div class="card">
                     <img alt="{{ room.description }}" src="https://picsum.photos/200" />
                     <div class="card-body">
-                        <div>
-                            <h1> {{ room.name }} </h1>
-                            <h2>$ {{ room.price }} </h2>
+                        <div class="d-flex col info">
+                            <h1>{{ room.name }}</h1>
+                            <h2>${{ room.price }}</h2>
                         </div>
-                        <a role="button" class="btn-primary" href="{% url 'reservations:checkout' room.id %}">Reservar Habitacion</a>
+                        <a role="button" class="btn-primary mt-2" href="{% url 'reservations:checkout' room.id %}">Reservar Habitacion</a>
                     </div>
                 </div>
             {% endfor %}
