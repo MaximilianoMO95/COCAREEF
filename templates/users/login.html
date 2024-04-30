@@ -12,21 +12,21 @@
               <img class="logo" src="/static/img/Logo1.png" alt="Imagen de logo">
               <form class="row flex-column gy-4 p-5" method="post">
                   <h2 class="acceso">ACCESO</h2>
-                 
-           
+
+
                   {% csrf_token %}
                   <div class="input-group">
                       <label for="username">USUARIO</label>
                       {{ form.username }}
                       {% if form.username.errors %}
-                          <small class="error">{{ form.username.errors|striptags }}</small> 
+                          <small class="error">{{ form.username.errors|striptags }}</small>
                       {% endif %}
                   </div>
                   <div class="input-group">
                       <label for="password">CONTRASEÑA</label>
                       {{ form.password }}
                       {% if form.password.errors %}
-                          <small class="error">{{ form.password.errors|striptags }}</small> 
+                          <small class="error">{{ form.password.errors|striptags }}</small>
                       {% endif %}
                   </div>
 
@@ -39,10 +39,10 @@
                       {% endfor %}
                   </div>
                 {% endif %}
-         
+
                   <div >
                       <input type="submit" value="Iniciar Sesion" class="boton">
-                      <a href="{% url 'users:signin' %}" class="registro">Registrarse</a>
+                      <a href="{% url 'users:signin' %}" class="boton">Registrarse</a>
                       <div class="d-flex justify-content-between">
                       </div>
                   </div>

@@ -208,38 +208,16 @@ input[type="password"] {
     border: none;
     border-radius: 5px;
     background-color: #56465a;
+    text-decoration: none;
+    text-align: center;
     color: white;
     cursor: pointer;
     display: block;
 }
 
-.registro {
-
-    width: 138px;
-    height: auto;
-    font-size: 1.2rem; 
-    margin-left: 2rem;
-    margin-top: 4rem;
-    padding: 0.8rem 2rem; 
-    border: none; 
-    border-radius: 5px; 
-    background-color: #56465a; 
-    color: white; 
-    cursor: pointer; 
-    display: block; 
-    margin-top: 2rem;
-    display: block;
-    text-decoration: none; 
-    color: white; 
-    text-align: center;
-    
-}
-
 .registro:hover {
-    background-color: #78627e; 
+    background-color: #78627e;
 }
-
-
 
 /* Estilo para el botón de inicio de sesión al pasar el ratón */
 
