@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block title %}Hotel Reef - Crear Habitacion{% endblock title %}
+
+{% block head %}
+<style>
+    main {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100vw;
+        min-height: 100vh;
+    }
+
+    form {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: start;
+        gap: 1em;
+
+        width: 80%;
+
+        & input {
+            width: 100%;
+            padding: 0.5em;
+        }
+
+        & input[type="submit"] {
+            margin-top: 3em;
+        }
+    }
+
+    .form-field {
+        flex: 1 1 40%;
+        display: flex;
+        flex-direction: column;
+        gap: 0.45em;
+    }
+</style>
+{% endblock head %}
+
+{% block content %}
+<main class="background-bg">
+    <div class="glass-container">
+        <h1 class="title">Editar Habitacion</h1>
+
+        <form method="post">
+            {% csrf_token %}
+            {% for field in form %}
+                <div class="form-field">
+                        {{ field.label_tag }}
+                        {{ field }}
+                        {% if field.errors %}
+                                <small class="error">{{ field.errors|striptags  }}</small>
+                        {% endif %}
+                </div>
+            {% endfor %}
+
+            <button type="submit" class="btn-primary">Crear Habitacion</button>
+        </form>
+    </div>
+</main>
+{% endblock content %}

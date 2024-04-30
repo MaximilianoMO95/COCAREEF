@@ -1,4 +1,10 @@
 {% extends "base.html" %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/employee-edit.css' %}">
+{% endblock head %}
+
 {% block content %}
 <main class="background-bg">
     <div class="employe-container">
@@ -9,6 +15,6 @@
             <button type="submit">Guardar cambios</button>
         </form>
     </div>
-</main>   
+</main>
 {% endblock %}
 
