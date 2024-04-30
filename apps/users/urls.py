@@ -1,9 +1,11 @@
 from django.urls import path
 from .views import (AdminPanelView, UserLoginView, UserRegistrationView, EmployeeListView, EmployeeEditView, EmployeeRegistrationView)
+from django.contrib.auth.views import LogoutView
 
 app_name = 'users'
 
 urlpatterns = [
+    path('logout/', LogoutView.as_view(), name='logout'),
     path('signin/', UserRegistrationView.as_view(), name='signin'),
     path('login/', UserLoginView.as_view(), name='login'),
     path('admin-panel/', AdminPanelView.as_view(), name='admin-panel'),

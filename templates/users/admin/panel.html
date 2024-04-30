@@ -9,7 +9,7 @@
 {% block content %}
 <main class="container background-bg">
   <div class="row justify-content-center align-items-center min-vh-100">
-      
+
           <div class="admin-container">
             <h2 class="bienvenido">Bienvenid@</h2>
               <div class="row row-cols-1 row-cols-md-2 g-4">
@@ -34,7 +34,7 @@
               </div>
               <div class="row row-cols-1 row-cols-md-2 g-4">
                   <div class="col-md-6">
-                    <a href="{% url 'users:employee_list' %}" class="card-link"></a>
+                    <a href="{% url 'reservations:list' %}" class="card-link"></a>
                           <div class="card card-modificar-reserva">
                               <div class="card-body">
                                   <h5 class="card-title">Modificar Reserva</h5>
@@ -43,7 +43,7 @@
                       </a>
                   </div>
                   <div class="col-md-6">
-                    <a href="{% url 'users:employee_list' %}" class="card-link"></a>
+                    <a href="{% url 'rooms:catalogue' %}" class="card-link"></a>
                           <div class="card card-catalogo-habitaciones">
                               <div class="card-body">
                                   <h5 class="card-title">Catálogo de Habitaciones</h5>
