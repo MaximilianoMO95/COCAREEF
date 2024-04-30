@@ -86,8 +86,8 @@ span:has(svg) {
 .d-flex { display: flex; }
 .d-flex.col { flex-direction: column; }
 .d-flex.row { flex-direction: row; }
-.d-flex.align-center { align-items: center; }
-.d-flex.justify-center { justify-content: center; }
+.d-flex.align-items-center { align-items: center; }
+.d-flex.justify-content-center { justify-content: center; }
 .d-flex.g-0 { gap: 0; }
 .d-flex.g-1 { gap: 1em; }
 .d-flex.g-2 { gap: 2em; }
