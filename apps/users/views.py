@@ -1,5 +1,5 @@
 from django.views import View
-from django.contrib.auth.views import LoginView
+from django.contrib.auth.views import LoginView, reverse_lazy
 from django.contrib.auth import login
 from django.contrib.auth.models import Group
 from django.shortcuts import render, redirect
@@ -12,6 +12,13 @@ from .models import (Customer, Employee)
 class UserLoginView(LoginView):
     template_name = 'users/login.html'
     form_class = UserLoginForm
+
+    def get_success_url(self):
+        if self.request.user.is_superuser:
+            return reverse_lazy('users:admin-panel')
+
+        return reverse_lazy('rooms:catalogue')
+
 
     def dispatch(self, request, *args, **kwargs):
         if self.request.user.is_authenticated:
