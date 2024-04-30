@@ -140,7 +140,17 @@ span:has(svg) {
     min-height: 100vh;
     width: 100vw;
 }
-/************************** END UTILITY CLASSES **************************/
+
+/************************** NAVBAR **************************/
+.nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+    gap: 1em;
+    width: 100%;
+    padding-left: 2em;
+}
 
 /* text box */
 input[type="text"],
@@ -154,15 +164,16 @@ input[type="password"] {
 
 /* Login */
 .login-container {
-    max-width: 400px;
+    min-width: 30vw;
+    min-height: 80vh;
     margin: 0 auto;
-    height: 30vh;
     display: flex;
     justify-content: center;
     align-items: center;
 
     background-color: rgba(0, 0, 0, 0.541);
-    padding: 15rem;
+    color: #FFFF;
+    padding: 2rem;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
