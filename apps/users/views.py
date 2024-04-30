@@ -45,17 +45,15 @@ class EmployeeRegistrationView(View):
             user.email = form.cleaned_data['email']
             user.save()
 
-           
-            
+            employee = Employee.objects.create(
+            user=user,
+            rut=form.cleaned_data['rut']
+            )
+
             employee_group, _ = Group.objects.get_or_create(name='employee')
             user.groups.add(employee_group)
 
-            employee = Employee.objects.create(
-                user=user,
-                rut=form.cleaned_data['rut']
-               
-            )
-            employee.save()
+           
           
             login(request, user)
 
