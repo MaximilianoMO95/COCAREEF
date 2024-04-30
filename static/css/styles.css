@@ -6,10 +6,10 @@
 
     --text-color-primary: #000000;
 
-    --btn-primary-bg: #3333DD;
+    --btn-primary-bg: #56465A;
     --btn-primary-color: #FFFFFF;
-    --btn-secundary-bg: #222222;
-    --btn-secundary-color: #CCCCCC;
+    --btn-secondary-bg: #222222;
+    --btn-secondary-color: #CCCCCC;
 
     --border-radius: 0.26em;
 }
@@ -47,12 +47,13 @@ main {
 }
 
 :is(button, a) {
+    transition: all 300ms ease;
     cursor: pointer;
     border-radius: var(--border-radius);
 }
 
 :is(button, a):hover {
-    opacity: 0.9;
+    filter: brightness(1.3);
 }
 
 :is(input, button, textarea) {
@@ -85,6 +86,8 @@ span:has(svg) {
 .d-flex { display: flex; }
 .d-flex.col { flex-direction: column; }
 .d-flex.row { flex-direction: row; }
+.d-flex.align-center { align-items: center; }
+.d-flex.justify-center { justify-content: center; }
 .d-flex.g-0 { gap: 0; }
 .d-flex.g-1 { gap: 1em; }
 .d-flex.g-2 { gap: 2em; }
@@ -97,6 +100,19 @@ span:has(svg) {
 .m-3 { margin: 3em; }
 .m-4 { margin: 4em; }
 .m-5 { margin: 5em; }
+.my-0 { margin: 0 auto; }
+.my-1 { margin: 1em auto; }
+.my-2 { margin: 2em auto; }
+.my-3 { margin: 3em auto; }
+.my-4 { margin: 4em auto; }
+.my-5 { margin: 5em auto; }
+.mx-0 { margin: auto 0; }
+.mx-1 { margin: auto 1em; }
+.mx-2 { margin: auto 2em; }
+.mx-3 { margin: auto 3em; }
+.mx-4 { margin: auto 4em; }
+.mx-5 { margin: auto 5em; }
+.mb-0 { margin-bottom: 0; }
 .mt-0 { margin-top: 0; }
 .mt-1 { margin-top: 1em; }
 .mt-2 { margin-top: 2em; }
@@ -124,22 +140,22 @@ span:has(svg) {
     text-decoration: none;
     border: none;
     border-radius: 0.25em;
-    padding: 0.5em 1em;
+    padding: 0.8em 1.6em;
 
     min-width: 200px;
 }
 
-.btn-secundary {
+.btn-secondary {
     display: flex;
     align-items: center;
     justify-content: center;
     font-weight: normal;
     background: none;
-    border: 0.15em solid var(--btn-secundary-bg, darkgray);
+    border: 0.15em solid var(--btn-secondary-bg, darkgray);
     border-radius: 0.25em;
-    color: var(--btn-secundary-color);
+    color: var(--btn-secondary-color);
     text-decoration: none;
-    padding: 0.5em 1em;
+    padding: 0.8em 1.6em;
 
     min-width: 150px;
 }
@@ -215,72 +231,19 @@ span:has(svg) {
 
     background-color: var(--glass-bg);
     color: var(--glass-text-color);
-    padding: 2rem;
+    padding: 3em 5em;
     border-radius: var(--border-radius);
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 
     min-width: 30vw;
     min-height: 80vh;
-}
 
-/* Estilo para titulo ACCESO */
-.acceso {
-    font-size: 2rem;
-    margin-top: 10rem;
-    margin-bottom: 4rem;
-    margin-left: 3.5rem;
-    position: relative;
-    z-index: 2;
-}
+    input {
+        min-width: 300px;
+    }
 
-/* Estilo General de boton*/
-.boton {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #56465a;
-    color: white;
-    font-size: 1.2em;
-    padding: 0.8em 1.8em;
-    border: 0;
-    text-decoration: none;
-    text-align: center;
-
-    min-width: 200px;
-
-    &:hover { background-color: #78627e; }
-}
-
-.coral {
-    position: absolute;
-    top: 150px;
-
-    left: calc(50% - 79px);
-    width: 140px;
-    height: auto;
-    z-index: 1;
-}
-
-.logo {
-    position: absolute;
-    top: 150px;
-
-    left: calc(50% - 175px);
-    width: 300px;
-    height: auto;
-    z-index: 1;
-}
-
-.star {
-    position: absolute;
-    top: -100px;
-    left: calc(50% - 525px);
-    width: 800px;
-    height: auto;
-    z-index: 1;
-}
-
-.error-container {
-    margin-bottom: 80px;
-    margin-top: -2px;
+    & :is(button, a) {
+        font-size: 1.2em;
+        min-width: 250px;
+    }
 }

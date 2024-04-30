@@ -5,12 +5,10 @@
 {% block content %}
 <main class="container background-bg">
     <div class="login-container">
-        <img class="star" src="/static/img/star.png" alt="Imagen de estrella">
-        <img class="coral" src="/static/img/coral.png" alt="Imagen de coral">
-        <img class="logo" src="/static/img/Logo1.png" alt="Imagen de logo">
-        <form class="d-flex col g-1" method="POST">
+        <form class="d-flex col g-1 align-center" method="POST">
+            <img src="/static/logo.svg" width="200" alt="Logo de hotel reef, representado por 4 estrellas doradas y corales">
             {% csrf_token %}
-            <h1 class="acceso">ACCESO</h1>
+            <h1 class="text-align-center my-1">ACCESO</h1>
 
             {% for field in form %}
                 <div class="input-group fmt-upper">
@@ -23,18 +21,16 @@
             {% endfor %}
 
             {% if messages %}
-            <div class="error-container">
+            <div class="d-flex" aria-label="Lista de mensajes de errores">
                 {% for message in messages %}
-                <div id="error-message" class="alert alert-danger" role="alert">
-                    {{ message }}
-                </div>
+                <p class="error">{{ message }}</p>
                 {% endfor %}
             </div>
             {% endif %}
 
             <div class="d-flex col g-2 mt-3">
-                <button type="submit" class="boton">Iniciar Sesion</button>
-                <a href="{% url 'users:signin' %}" class="boton">Registrarse</a>
+                <button type="submit" class="btn-primary">Iniciar Sesion</button>
+                <a href="{% url 'users:signin' %}" class="btn-secondary">Registrarse</a>
             </div>
         </form>
     </div>
