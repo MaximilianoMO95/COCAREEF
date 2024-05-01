@@ -17,9 +17,9 @@
                                 <h1>{{ reservation.start_date }}</h1>
                                 <h2>{{ reservation.room.name }}</h2>
                             </div>
-                            <div class="d-flex row g-1 mt-2">
-                                <a role="button" class="btn-primary" href="#">Editar</a>
-                                <a role="button" class="btn-primary" href="#">Eliminar</a>
+                            <div class="buttons d-flex row g-1 mt-2">
+                                <a role="button" href="{% url 'reservations:delete' reservation.id %}" class="btn-secondary">Eliminar</a>
+                                <a href="{% url 'reservations:edit' reservation.id %}" role="button" class="btn-primary">Editar</a>
                             </div>
                         </div>
                     </div>
@@ -35,6 +35,10 @@
 
 {% block head %}
 <style>
+    .buttons {
+        & .btn-secondary { color: #000; }
+    }
+
     .card {
         display: flex;
         background: var(--bg-primary, #FFF);

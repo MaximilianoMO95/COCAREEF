@@ -8,4 +8,4 @@ class RoomForm(forms.ModelForm):
 
 
 class RoomTypeFilterForm(forms.Form):
-    room_type_slug = forms.ModelChoiceField(label='Tipo De Habitacion',queryset=RoomType.objects.all(), empty_label='All', required=False)
+    room_type_slug = forms.ModelChoiceField(label='Tipo De Habitacion',queryset=RoomType.objects.all(), required=False)

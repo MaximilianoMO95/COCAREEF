@@ -2,9 +2,8 @@ from django.views import View
 from django.views.generic import ListView
 from django.shortcuts import (render, get_object_or_404, redirect)
 
-from apps.rooms.models import (Room, RoomType)
+from apps.rooms.models import Room
 from .forms import (RoomForm, RoomTypeFilterForm)
-
 
 class RoomCatalogueListView(ListView):
     model = Room

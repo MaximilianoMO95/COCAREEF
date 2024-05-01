@@ -1,5 +1,5 @@
 from urllib.parse import parse_qs
-from django.shortcuts import (HttpResponseRedirect, redirect, render, get_object_or_404)
+from django.shortcuts import (redirect, render, get_object_or_404)
 from django.views import View
 from django.contrib.admin.options import method_decorator
 from django.contrib.auth.views import login_required
@@ -10,7 +10,7 @@ from django.views.generic import ListView
 from apps.rooms.models import Room
 from apps.webpay.views import WebpayAPI
 from .models import Reservation
-from .forms import ReservationForm
+from .forms import (OrderCreateForm, ReservationForm)
 
 #TODO: Clean up the mess
 #TODO: Add required permisitions
@@ -25,16 +25,32 @@ class ListReservationsView(ListView):
         return context
 
 
+@method_decorator(login_required, name='dispatch')
 class EditReservationView(View):
-    template_name = 'reservations/admin/edit.html'
+    template_name = 'reservations/admin/update.html'
+
+    def get(self, request, reservation_id):
+        reservation = get_object_or_404(Reservation, id=reservation_id)
+        form = ReservationForm(instance=reservation)
+        return render(request, self.template_name, { 'form': form, 'reservation_id': reservation_id })
 
 
-#@method_decorator(login_required, name='dispatch')
+    def post(self, request, reservation_id):
+        reservation = get_object_or_404(Reservation, id=reservation_id)
+        form = ReservationForm(request.POST, instance=reservation)
+        if form.is_valid():
+            form.save()
+            return redirect('reservations:list')
+
+        return render(request, self.template_name, { 'form': form, 'reservation_id': reservation.id })
+
+
+@method_decorator(login_required, name='dispatch')
 class OrderCreateView(View):
     template_name = 'reservations/checkout.html'
 
     def get(self, request, room_id):
-        form = ReservationForm(
+        form = OrderCreateForm(
             initial={ 'days_of_stay': 1 }
         )
         room = get_object_or_404(Room, id=room_id)
@@ -42,7 +58,7 @@ class OrderCreateView(View):
 
 
     def post(self, request, room_id):
-        form = ReservationForm(request.POST)
+        form = OrderCreateForm(request.POST)
 
         if form.is_valid():
             # TODO: Check if room is available
@@ -133,8 +149,8 @@ def book_room(request, room_id, start_date, days_of_stay) -> Reservation | None:
 
 
 @login_required
-def remove_booked_room(request, room_id):
-    room = Reservation.objects.get(id=room_id)
+def delete_reservation(request, reservation_id):
+    room = Reservation.objects.get(id=reservation_id)
     room.delete()
 
-    return HttpResponseRedirect(request.META['HTTP_REFERER'])
+    return redirect('reservations:list')
