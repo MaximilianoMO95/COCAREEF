@@ -163,6 +163,18 @@ select {
 .h-100vh { height: 100vh; }
 .h-80vh  { height: 80vh; }
 .h-60vh  { height: 60vh; }
+.min-w-100vw { min-width: 100vw; }
+.min-w-80vw  { min-width: 80vw; }
+.min-w-60vw  { min-width: 60vw; }
+.min-h-100vh { min-height: 100vh; }
+.min-h-80vh  { min-height: 80vh; }
+.min-h-60vh  { min-height: 60vh; }
+.max-w-100vw { max-width: 100vw; }
+.max-w-80vw  { max-width: 80vw; }
+.max-w-60vw  { max-width: 60vw; }
+.max-h-100vh { max-height: 100vh; }
+.max-h-80vh  { max-height: 80vh; }
+.max-h-60vh  { max-height: 60vh; }
 
 .error { color: #FF7A7A; }
 .icon { color: var(--text-color-primary); }

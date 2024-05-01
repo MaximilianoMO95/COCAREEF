@@ -2,16 +2,39 @@
 
 {% block title %}Hotel Reef - Lista de reservaciones{% endblock title %}
 
+{% block content %}
+<main class="background-bg">
+    <div class="glass-container">
+        {% include 'navbar.html' with title='Lista De Reservaciones' backurl='/admin-panel' %}
+
+        {% if object_list %}
+            <div class="d-flex justify-content-center align-items-center min-h-60vh">
+                <div class="card-list-ctn mt-3">
+                {% for reservation in object_list %}
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex g-1 col">
+                                <h1>{{ reservation.start_date }}</h1>
+                                <h2>{{ reservation.room.name }}</h2>
+                            </div>
+                            <div class="d-flex row g-1 mt-2">
+                                <a role="button" class="btn-primary" href="#">Editar</a>
+                                <a role="button" class="btn-primary" href="#">Eliminar</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+                </div>
+            </div>
+        {% else %}
+            <h1>No Se Encontro Ninguna Reserva</h1>
+        {% endif %}
+    </div>
+</main>
+{% endblock content %}
+
 {% block head %}
 <style>
-    main {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 100vw;
-        min-height: 100vh;
-    }
-
     .card {
         display: flex;
         background: var(--bg-primary, #FFF);
@@ -22,7 +45,11 @@
         flex-wrap: wrap;
         gap: 1em;
         padding: 0;
-        min-width: 320px;
+        min-width: 300px;
+
+        & h2 {
+            opacity: 0.6;
+        }
 
         & .card-body {
             padding: 1em;
@@ -36,46 +63,9 @@
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
-        justify-content: space-around;
-        align-items: center;
+        justify-content: center;
+        align-items: stretch;
         gap: 1.5em;
-    }
-
-    .title {
-        display: flex;
-        color: var(--title-color, #FFF);
-        width: 100vw;
-        padding-left: 5vw;
-        margin-bottom: 5vw;
     }
 </style>
 {% endblock head %}
-
-{% block content %}
-<main class="background-bg">
-    <div class="glass-container">
-        <h1 class="title">Reservaciones</h1>
-
-        {% if object_list %}
-            <div class="card-list-ctn">
-            {% for reservation in object_list %}
-                <div class="card">
-                    <div class="card-body">
-                        <div>
-                            <h1>{{ reservation.start_date }}</h1>
-                            <h2>{{ reservation.room.name }}</h2>
-                        </div>
-                        <div class="d-flex row g-1">
-                            <a role="button" class="btn-primary" href="#">Editar</a>
-                            <a role="button" class="btn-primary" href="#">Eliminar</a>
-                        </div>
-                    </div>
-                </div>
-            {% endfor %}
-            </div>
-        {% else %}
-            <h1>Can't find any reservation</h1>
-        {% endif %}
-    </div>
-</main>
-{% endblock content %}
