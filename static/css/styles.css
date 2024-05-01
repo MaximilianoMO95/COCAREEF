@@ -26,6 +26,7 @@ body {
     box-sizing: border-box;
     border: 0;
     margin: 0;
+    padding: 0;
 
     font-optical-sizing: auto;
 
@@ -66,6 +67,7 @@ main {
 
 input {
     padding: 0.5em 1em;
+    background-color: #EEE;
 }
 
 :is(input, button, textarea):not(:focus, :focus-within, :focus-visible) {
@@ -84,17 +86,29 @@ span:has(svg) {
 .fmt-lower { text-transform: lowercase; }
 .fmt-capitalize { text-transform: capitalize; }
 .d-flex { display: flex; }
-.d-flex.col { flex-direction: column; }
-.d-flex.row { flex-direction: row; }
-.d-flex.align-items-center { align-items: center; }
-.d-flex.justify-content-center { justify-content: center; }
-.d-flex.g-0 { gap: 0; }
-.d-flex.g-1 { gap: 1em; }
-.d-flex.g-2 { gap: 2em; }
-.d-flex.g-3 { gap: 3em; }
-.d-flex.g-4 { gap: 4em; }
-.d-flex.g-5 { gap: 5em; }
-.d-flex.flex-wrap { flex-wrap: wrap; }
+.col { flex-direction: column; }
+.row { flex-direction: row; }
+.align-items-center { align-items: center; }
+.justify-content-center { justify-content: center; }
+.g-0 { gap: 0; }
+.g-1 { gap: 1em; }
+.g-2 { gap: 2em; }
+.g-3 { gap: 3em; }
+.g-4 { gap: 4em; }
+.g-5 { gap: 5em; }
+.gy-0 { gap: 0 auto; }
+.gy-1 { gap: 1em auto; }
+.gy-2 { gap: 2em auto; }
+.gy-3 { gap: 3em auto; }
+.gy-4 { gap: 4em auto; }
+.gy-5 { gap: 5em auto; }
+.gx-0 { gap: auto 0; }
+.gx-1 { gap: auto 1em; }
+.gx-2 { gap: auto 2em; }
+.gx-3 { gap: auto 3em; }
+.gx-4 { gap: auto 4em; }
+.gx-5 { gap: auto 5em; }
+.flex-wrap { flex-wrap: wrap; }
 .d-flex.flex-nowrap { flex-wrap: nowrap; }
 .m-0 { margin: 0; }
 .m-1 { margin: 1em; }
@@ -177,9 +191,11 @@ span:has(svg) {
     align-items: center;
     padding: 2em;
     gap: 1em;
+    margin: 2em;
 
-    width: 95vw;
-    min-height: 95vh;
+    min-width: 80vw;
+    max-width: 95vw;
+    min-height: 90vh;
 }
 
 .background-bg {
@@ -190,14 +206,15 @@ span:has(svg) {
 
     background-image: linear-gradient(rgba(0, 0, 0, 0.0), rgb(14, 13, 13)), url('/static/img/background-img.jpg');
     background-size: cover;
+    background-repeat: no-repeat;
     background-position: center;
-    color: var(--text-color-primary);
+    background-attachment: fixed;
+    color: var(--glass-text-color);
 
     min-height: 100vh;
     width: 100vw;
 }
 
-/* Estilo para cada grupo de etiqueta de entrada */
 .input-group {
     display: flex;
     flex-direction: column;
@@ -217,6 +234,7 @@ span:has(svg) {
 
     h1 {
         font-size: 2.6em;
+        text-transform: capitalize;
     }
 
     .icon {
