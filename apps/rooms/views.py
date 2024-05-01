@@ -3,33 +3,34 @@ from django.views.generic import ListView
 from django.shortcuts import (render, get_object_or_404, redirect)
 
 from apps.rooms.models import (Room, RoomType)
-from .forms import RoomForm
+from .forms import (RoomForm, RoomTypeFilterForm)
+
 
 class RoomCatalogueListView(ListView):
     model = Room
     template_name = 'rooms/catalogue.html'
+    filter_form = RoomTypeFilterForm
 
     def get_template_names(self):
         if self.request.user.is_superuser:
             return ['rooms/admin/catalogue.html']
-
         return self.template_name
 
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['room_types'] = RoomType.objects.all()
+        context['filter_form'] = self.filter_form(self.request.GET)
         return context
 
 
     def get_queryset(self):
         queryset = super().get_queryset()
-        room_type_slug = self.request.GET.get('room_type_slug')
+        form = self.filter_form(self.request.GET)
 
-        if room_type_slug:
-            query_subset = queryset.filter(room_type__name=room_type_slug)
-            if query_subset.exists():
-                return query_subset
+        if form.is_valid():
+            room_type_slug = form.cleaned_data.get('room_type_slug')
+            if room_type_slug:
+                queryset = queryset.filter(room_type__name=room_type_slug)
 
         return queryset
 

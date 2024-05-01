@@ -1,15 +1,71 @@
 {% extends "base.html" %}
 
-{% block title %}Hotel Reef - Administrar Catalogo De Habitaciones{% endblock title %}
+{% block title %}Hotel Reef - Catalogo De Habitaciones{% endblock title %}
+
+{% block content %}
+<main class="background-bg">
+    <div class="glass-container">
+        {% include 'navbar.html' with title='Administrar Catalogo De Habitaciones' backurl='/admin-panel' %}
+
+        <div class="action-buttons my-2">
+            <a role="button" class="btn-primary" href="{% url 'rooms:create' %}">Nueva Habitacion</a>
+        </div>
+
+        {% if object_list %}
+            <form id="filter-form" method="GET" action="{% url 'rooms:catalogue' %}">
+                {% for field in filter_form %}
+                    <div class="input-group">
+                        {{ field.label_tag }}
+                        {{ field }}
+                    </div>
+                {% endfor %}
+                <button type="submit" class="btn-primary">Aplicar Filtro</button>
+            </form>
+
+            <div class="card-list-ctn mt-5">
+            {% for room in object_list %}
+                <div class="card">
+                    <img alt="{{ room.description }}" src="https://picsum.photos/200" />
+                    <div class="card-body">
+                        <div class="d-flex col info">
+                            <h1>{{ room.name }}</h1>
+                            <h2>${{ room.price }}</h2>
+                        </div>
+                        <a role="button" class="btn-primary mt-2" href="{% url 'rooms:edit' room.id %}">Editar</a>
+                    </div>
+                </div>
+            {% endfor %}
+            </div>
+        {% else %}
+            <h1>No Se Encontro Ninguna Habitacion</h1>
+        {% endif %}
+    </div>
+</main>
+{% endblock content %}
 
 {% block head %}
 <style>
-    main {
+    #filter-form {
         display: flex;
-        align-items: center;
+        padding-left: 2em;
+        gap: 1em;
         justify-content: center;
-        width: 100vw;
-        min-height: 100vh;
+        align-items: end;
+
+        width: 100%;
+
+        & .input-group {
+            align-items: center;
+        }
+    }
+
+    .action-buttons {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
     }
 
     .card {
@@ -30,9 +86,21 @@
         }
 
         & .card-body {
-            padding: 1em;
             display: flex;
+            flex-direction: column;
             gap: 1em;
+            padding: 1em;
+
+        }
+
+        & .info {
+            & h2 {
+                opacity: 0.6;
+            }
+        }
+
+        & :is(a, button) {
+            padding: 1.5em 4em;
         }
     }
 
@@ -40,47 +108,11 @@
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
-        justify-content: space-around;
-        align-items: center;
+        justify-content: center;
+        align-items: stretch;
         gap: 1.5em;
+
+        width: 100%;
     }
 </style>
 {% endblock head %}
-
-{% block content %}
-<main class="background-bg">
-    <div class="glass-container">
-        <h1 class="title">Catalogo De Habitaciones</h1>
-        <a role="button" class="btn-primary" href="{% url 'rooms:create' %}">Nueva Habitacion</a>
-
-        {% if object_list %}
-            <form method="get" action="{% url 'rooms:catalogue' %}">
-                {% csrf_token %}
-                <label for="room_type">Filter by Room Type:</label>
-                <select name="room_type_slug" id="room_type">
-                    <option value="all">All</option>
-                    {% for room_type in room_types %}
-                        <option value="{{ room_type.name }}" {% if room_type.name == request.GET.room_type_slug %} selected {% endif %}>{{ room_type.name }}</option>
-                    {% endfor %}
-                </select>
-                <button type="submit">Apply Filter</button>
-            </form>
-
-            <div class="card-list-ctn">
-            {% for room in object_list %}
-                <div class="card">
-                    <img alt="{{ room.description }}" src="https://picsum.photos/200" />
-                    <div class="card-body">
-                        <div>
-                            <h1> {{ room.name }} </h1>
-                            <h2>$ {{ room.price }} </h2>
-                        </div>
-                        <a role="button" class="btn-primary" href="{% url 'rooms:edit' room.id %}">Editar</a>
-                    </div>
-                </div>
-            {% endfor %}
-            </div>
-        {% endif %}
-    </div>
-</main>
-{% endblock content %}
