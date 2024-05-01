@@ -2,16 +2,27 @@
 
 {% block title %}Hotel Reef - Checkout{% endblock title %}
 
+{% block content %}
+<main class="background-bg">
+    <div class="glass-container">
+        <div class="d-flex justify-content-center align-items-center g-2 h-80vh">
+            <form method="post" action="{{ url }}">
+                <h1 class="text-align-center mb-5">Total A Pagar: <b>{{ total_amount }}</b></h1>
+
+                <div class="d-flex col w-100 g-2">
+                    <button type="submit" class="btn-primary">Ir a pagar</button>
+                    <a href="#" role="button" class="btn-secondary btn-fill">Cancelar Reservacion</a>
+                </div>
+                <input type="hidden" name="token_ws" value="{{ token_ws }}" />
+            </form>
+
+        </div>
+    </div>
+</main>
+{% endblock content %}
+
 {% block head %}
 <style>
-    main {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 100vw;
-        min-height: 100vh;
-    }
-
     form {
             display: flex;
             flex-direction: column;
@@ -22,22 +33,5 @@
             border: 0;
             border-radius: var(--border-radius);
     }
-
-    input:is([type="submit"]) {
-            max-width: 350px;
-    }
 </style>
 {% endblock head %}
-
-{% block content %}
-<main>
-        <div class="glass-container">
-                <form method="post" action="{{ url }}">
-                        <h2 class="text-align-center mb-5">Total A Pagar: <b>{{ total_amount }}</b></h2>
-
-                        <input type="hidden" name="token_ws" value="{{ token_ws }}" />
-                        <input type="submit" value="Ir a pagar" />
-                </form>
-        </div>
-</main>
-{% endblock content %}

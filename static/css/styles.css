@@ -232,7 +232,7 @@ select {
 .error { color: #FF7A7A; }
 .icon { color: var(--text-color-primary); }
 
-:is(.btn-primary, .btn-secondary) {
+:is(.btn-primary, .btn-secondary, .btn-fill) {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -252,6 +252,10 @@ select {
 .btn-secondary {
     background: none;
     border: 0.15em solid var(--btn-secondary-bg, darkgray);
+}
+
+.btn-secondary.btn-fill {
+    background: var(--btn-secondary-bg);
 }
 
 .glass-container {
