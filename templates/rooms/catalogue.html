@@ -5,7 +5,7 @@
 {% block content %}
 <main class="background-bg">
     <div class="glass-container">
-        {% include 'navbar.html' with title='Catalogo De Habitaciones' %}
+        {% include 'navbar.html' with title='Catalogo De Habitaciones' showlogout='true' %}
 
         {% if object_list %}
             <form id="filter-form" class="my-3" method="GET" action="{% url 'rooms:catalogue' %}">

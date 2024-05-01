@@ -112,18 +112,18 @@ select {
 .g-3 { gap: 3em; }
 .g-4 { gap: 4em; }
 .g-5 { gap: 5em; }
-.gy-0 { gap: 0 auto; }
-.gy-1 { gap: 1em auto; }
-.gy-2 { gap: 2em auto; }
-.gy-3 { gap: 3em auto; }
-.gy-4 { gap: 4em auto; }
-.gy-5 { gap: 5em auto; }
-.gx-0 { gap: auto 0; }
-.gx-1 { gap: auto 1em; }
-.gx-2 { gap: auto 2em; }
-.gx-3 { gap: auto 3em; }
-.gx-4 { gap: auto 4em; }
-.gx-5 { gap: auto 5em; }
+.gy-0 { row-gap: 0; }
+.gy-1 { row-gap: 1em; }
+.gy-2 { row-gap: 2em; }
+.gy-3 { row-gap: 3em; }
+.gy-4 { row-gap: 4em; }
+.gy-5 { row-gap: 5em; }
+.gx-0 { column-gap: 0; }
+.gx-1 { column-gap: 1em; }
+.gx-2 { column-gap: 2em; }
+.gx-3 { column-gap: 3em; }
+.gx-4 { column-gap: 4em; }
+.gx-5 { column-gap: 5em; }
 .flex-wrap { flex-wrap: wrap; }
 .d-flex.flex-nowrap { flex-wrap: nowrap; }
 .m-0 { margin: 0; }
@@ -157,6 +157,12 @@ select {
 .mb-3 { margin-bottom: 3em; }
 .mb-4 { margin-bottom: 4em; }
 .mb-5 { margin-bottom: 5em; }
+.w-100 { width: 100%; }
+.w-80  { width: 80%; }
+.w-60  { width: 60%; }
+.h-100 { height: 100%; }
+.h-80  { height: 80%; }
+.h-60  { height: 60%; }
 .w-100vw { width: 100vw; }
 .w-80vw  { width: 80vw; }
 .w-60vw  { width: 60vw; }
@@ -255,7 +261,7 @@ select {
 .nav {
     display: flex;
     flex-direction: row;
-    justify-content: start;
+    justify-content: space-between;
     align-items: center;
     gap: 1.6em;
     width: 100%;
