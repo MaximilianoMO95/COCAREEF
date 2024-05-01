@@ -66,7 +66,7 @@ class RoomUpdateView(View):
         form = RoomForm(request.POST, instance=room)
         if form.is_valid():
             form.save()
-            return redirect('rooms:catalogue', room_id=room.id)
+            return redirect('rooms:catalogue')
 
         return render(request, self.template_name, { 'form': form, 'room': room })
 
