@@ -7,34 +7,39 @@
     <div class="glass-container">
         {% include 'navbar.html' with title='Administrar Catalogo De Habitaciones' backurl='/admin-panel' %}
 
-        <div class="action-buttons my-2">
-            <a role="button" class="btn-primary" href="{% url 'rooms:create' %}">Nueva Habitacion</a>
-        </div>
-
         {% if object_list %}
-            <form id="filter-form" method="GET" action="{% url 'rooms:catalogue' %}">
-                {% for field in filter_form %}
-                    <div class="input-group">
-                        {{ field.label_tag }}
-                        {{ field }}
-                    </div>
-                {% endfor %}
-                <button type="submit" class="btn-primary">Aplicar Filtro</button>
-            </form>
-
-            <div class="card-list-ctn mt-5">
-            {% for room in object_list %}
-                <div class="card">
-                    <img alt="{{ room.description }}" src="https://picsum.photos/200" />
-                    <div class="card-body">
-                        <div class="d-flex col info">
-                            <h1>{{ room.name }}</h1>
-                            <h2>${{ room.price }}</h2>
+            <div class="d-flex col justify-content-center align-items-center w-100 my-3">
+                <form id="filter-form" method="GET" action="{% url 'rooms:catalogue' %}">
+                    {% for field in filter_form %}
+                        <div class="input-group">
+                            {{ field.label_tag }}
+                            {{ field }}
                         </div>
-                        <a role="button" class="btn-primary mt-2" href="{% url 'rooms:edit' room.id %}">Editar</a>
+                    {% endfor %}
+                    <button type="submit" class="btn-primary">Aplicar Filtro</button>
+                </form>
+
+                <div class="d-flex justify-content-center align-items-center g-2 w-100 col mt-2">
+                    <div class="mb-1 d-flex justify-content-start align-items-center row w-100">
+                        <h2 class="w-100 mt-2 mb-1">Lista De Habitaciones</h2>
+                        <a role="button" class="btn-primary" href="{% url 'rooms:create' %}">Nueva Habitacion</a>
+                    </div>
+
+                    <div class="card-list-ctn" role="list">
+                    {% for room in object_list %}
+                        <div class="card" role="listitem">
+                            <img alt="{{ room.description }}" src="https://picsum.photos/200" />
+                            <div class="card-body">
+                                <div class="d-flex col info g-1">
+                                    <h1>{{ room.name }}</h1>
+                                    <h2>${{ room.price }}</h2>
+                                </div>
+                                <a role="button" class="btn-primary mt-2" href="{% url 'rooms:edit' room.id %}">Editar</a>
+                            </div>
+                        </div>
+                    {% endfor %}
                     </div>
                 </div>
-            {% endfor %}
             </div>
         {% else %}
             <h1>No Se Encontro Ninguna Habitacion</h1>
@@ -59,15 +64,6 @@
         }
     }
 
-    .action-buttons {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
-    }
-
     .card {
         display: flex;
         background: var(--bg-primary, #FFF);
@@ -78,6 +74,7 @@
         flex-wrap: wrap;
         gap: 1em;
         padding: 0;
+
         min-width: 320px;
 
         & img {
@@ -111,8 +108,6 @@
         justify-content: center;
         align-items: stretch;
         gap: 1.5em;
-
-        width: 100%;
     }
 </style>
 {% endblock head %}
