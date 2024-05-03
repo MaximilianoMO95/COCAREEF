@@ -117,9 +117,9 @@ USE_I18N = True
 USE_TZ = True
 
 # Urls
-# LOGIN_URL = '/account/login/'
-LOGIN_REDIRECT_URL = '/'
-LOGOUT_REDIRECT_URL = '/'
+LOGIN_URL = '/login'
+LOGIN_REDIRECT_URL = '/rooms'
+LOGOUT_REDIRECT_URL = '/login'
 
 # Formats
 USE_L10N = False
