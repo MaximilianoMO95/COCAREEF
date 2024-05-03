@@ -2,23 +2,13 @@
 
 {% block title %}Hotel Reef - Payment Status{% endblock title %}
 
-{% block head %}
-<style>
-    main {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 100vw;
-        min-height: 100vh;
-    }
-</style>
-{% endblock head %}
-
 {% block content %}
-<main class="container">
-        <div class="">
-                <h1 class="text-align-center">Status: {{ pay_status }}</h1>
-                <a class="link-btn btn-primary" href="/">Volver A La Tienda</a>
+<main class="background-bg">
+    <div class="glass-container">
+        <div class="d-flex justify-content-space-around align-items-center g-1 col min-h-80vh">
+            <h1 class="text-align-center">Estado Del Pago: {{ pay_status }}</h1>
+            <a href="{% url 'rooms:catalogue' %}" class="btn-primary">Volver A Pagina Principal</a>
         </div>
+    </div>
 </main>
 {% endblock content %}

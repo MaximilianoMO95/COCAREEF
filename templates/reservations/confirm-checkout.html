@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}Hotel Reef - Checkout{% endblock title %}
 
@@ -11,7 +12,14 @@
 
                 <div class="d-flex col w-100 g-2">
                     <button type="submit" class="btn-primary">Ir a pagar</button>
-                    <a href="#" role="button" class="btn-secondary btn-fill">Cancelar Reservacion</a>
+                    <button
+                        class="btn-secondary btn-fill"
+                        type="button"
+                        hx-delete='{% url 'reservations:payment' %}'
+                        hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
+                    >
+                        Cancelar Reservacion
+                    </button>
                 </div>
                 <input type="hidden" name="token_ws" value="{{ token_ws }}" />
             </form>
@@ -22,6 +30,7 @@
 {% endblock content %}
 
 {% block head %}
+<script src="{% static 'script/htmx.min.js' %}"></script>
 <style>
     form {
             display: flex;
