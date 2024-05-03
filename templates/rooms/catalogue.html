@@ -7,7 +7,7 @@
     <div class="glass-container">
         {% include 'navbar.html' with title='Catalogo De Habitaciones' showlogout='true' %}
 
-        {% if object_list %}
+        {% if page_obj %}
             <form id="filter-form" class="my-3" method="GET" action="{% url 'rooms:catalogue' %}">
                 {% for field in filter_form %}
                     <div class="input-group">
@@ -19,19 +19,35 @@
             </form>
 
             <div class="card-list-ctn">
-            {% for room in object_list %}
-                <div class="card">
-                    <img alt="{{ room.description }}" src="https://picsum.photos/200" />
-                    <div class="card-body">
-                        <div class="d-flex col info g-1">
-                            <h1>{{ room.name }}</h1>
-                            <h2>${{ room.price }}</h2>
+                {% for room in page_obj %}
+                    <div class="card">
+                        <img alt="{{ room.description }}" src="https://picsum.photos/200" />
+                        <div class="card-body">
+                            <div class="d-flex col info g-1">
+                                <h1>{{ room.name }}</h1>
+                                <h2>${{ room.price }}</h2>
+                            </div>
+                            <a role="button" class="btn-primary mt-2" href="{% url 'reservations:checkout' room.id %}">Reservar Habitacion</a>
+                            <a role="button" class="btn-secondary" href="{% url 'rooms:details' room.id %}">Mostrar Detalles</a>
                         </div>
-                        <a role="button" class="btn-primary mt-2" href="{% url 'reservations:checkout' room.id %}">Reservar Habitacion</a>
-                        <a role="button" class="btn-secondary" href="{% url 'rooms:details' room.id %}">Mostrar Detalles</a>
                     </div>
+                {% endfor %}
+
+                <div class="pagination mt-2">
+                    <ul>
+                        {% if page_obj.has_previous %}
+                            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+                            <a class="pagination-link" href="?page=1">1</a>
+                        {% endif %}
+
+                        <span class="active">{{ page_obj.number }}</span>
+
+                        {% if page_obj.has_next %}
+                            <a class="pagination-link" href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages }}</a>
+                            <a href="?page={{ page_obj.next_page_number }}">next</a>
+                        {% endif %}
+                    </ul>
                 </div>
-            {% endfor %}
             </div>
         {% else %}
             <h1>Can't find any room</h1>

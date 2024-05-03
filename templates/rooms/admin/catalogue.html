@@ -26,18 +26,35 @@
                     </div>
 
                     <div class="card-list-ctn" role="list">
-                    {% for room in object_list %}
-                        <div class="card" role="listitem">
-                            <img alt="{{ room.description }}" src="https://picsum.photos/200" />
-                            <div class="card-body">
-                                <div class="d-flex col info g-1">
-                                    <h1>{{ room.name }}</h1>
-                                    <h2>${{ room.price }}</h2>
+                        {% for room in object_list %}
+                            <div class="card" role="listitem">
+                                <img alt="{{ room.description }}" src="https://picsum.photos/200" />
+                                <div class="card-body">
+                                    <div class="d-flex col info g-1">
+                                        <h1>{{ room.name }}</h1>
+                                        <h2>${{ room.price }}</h2>
+                                    </div>
+                                    <a role="button" class="btn-primary mt-2" href="{% url 'rooms:edit' room.id %}">Editar</a>
                                 </div>
-                                <a role="button" class="btn-primary mt-2" href="{% url 'rooms:edit' room.id %}">Editar</a>
                             </div>
+                        {% endfor %}
+
+                        <div class="pagination mt-2">
+                            <ul>
+                                {% if page_obj.has_previous %}
+                                    <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+                                    <a class="pagination-link" href="?page=1">1</a>
+                                {% endif %}
+
+                                <span class="active">{{ page_obj.number }}</span>
+
+                                {% if page_obj.has_next %}
+                                    <a class="pagination-link" href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages }}</a>
+                                    <a href="?page={{ page_obj.next_page_number }}">next</a>
+                                {% endif %}
+                            </ul>
                         </div>
-                    {% endfor %}
+                    </div>
                     </div>
                 </div>
             </div>

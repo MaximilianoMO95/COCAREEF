@@ -1,6 +1,7 @@
 from django.views import View
 from django.views.generic import ListView
 from django.shortcuts import (render, get_object_or_404, redirect)
+from django.views.generic.list import Paginator
 
 from apps.rooms.models import Room
 from .forms import (RoomForm, RoomTypeFilterForm)
@@ -19,6 +20,12 @@ class RoomCatalogueListView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['filter_form'] = self.filter_form(self.request.GET)
+
+        paginator = Paginator(context['object_list'], 10)
+        page_number = self.request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+        context['page_obj'] = page_obj
+
         return context
 
 
