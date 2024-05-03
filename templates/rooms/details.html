@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}Hotel Reef - Detalles De La Habitacion{% endblock title %}
+
+{% block content %}
+<main class="background-bg">
+    <div class="glass-container">
+        {% include 'navbar.html' with title='Detalle Habitacion' backurl='/rooms' %}
+
+        {% if room %}
+            <img alt="{{ room.description }}" src="https://picsum.photos/200" />
+            <h1>{{ room.name }}</h1>
+            <h2>Price: {{ room.price }}</h2>
+            <p>{{ room.description }}</p>
+
+            <a class="btn-primary" href="{% url 'reservations:checkout' room.id %}">Reserva Ahora</a>
+        {% endif %}
+    </div>
+</main>
+{% endblock content %}

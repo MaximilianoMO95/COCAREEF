@@ -75,3 +75,11 @@ def delete_room(request, room_id):
     room.delete()
 
     return redirect('rooms:catalogue')
+
+
+class RoomDetailsView(View):
+    template_name = 'rooms/details.html'
+
+    def get(self, request, room_id):
+        room = get_object_or_404(Room, id=room_id)
+        return render(request, self.template_name, { 'room': room })
