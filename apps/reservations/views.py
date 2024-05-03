@@ -1,3 +1,4 @@
+from datetime import date
 from urllib.parse import parse_qs
 from django.http.response import HttpResponseForbidden, JsonResponse
 from django.shortcuts import (redirect, render, get_object_or_404)
@@ -12,9 +13,6 @@ from apps.rooms.models import Room
 from apps.webpay.views import WebpayAPI
 from .models import Reservation
 from .forms import (OrderCreateForm, ReservationForm)
-
-#TODO: Clean up the mess
-#TODO: Add required permisitions
 
 @method_decorator(login_required, name='dispatch')
 class ListReservationsView(ListView):
@@ -59,11 +57,14 @@ class OrderCreateView(View):
 
 
     def post(self, request, room_id):
+        room = get_object_or_404(Room, id=room_id)
         form = OrderCreateForm(request.POST)
 
         if form.is_valid():
-            # TODO: Check if room is available
-            is_room_available = True;
+            start_date: date = form.cleaned_data['start_date']
+            total_days: int = form.cleaned_data['days_of_stay']
+
+            is_room_available = Reservation.objects.is_room_available(room, start_date, total_days);
             if is_room_available:
                 reservation = book_room(
                     request,
@@ -75,9 +76,8 @@ class OrderCreateView(View):
                     request.session['reservation_id'] = reservation.pk
                     return redirect('reservations:payment')
             else:
-                form.add_error(None, 'Room is not available.')
+                form.add_error('start_date', 'La habitacion no esta disponible para esa fecha.')
 
-        room = get_object_or_404(Room, id=room_id)
         return render(request, self.template_name, { 'form': form, 'room': room })
 
 
