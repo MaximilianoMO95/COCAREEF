@@ -11,6 +11,9 @@
     </div>
 
     {% if showlogout %}
-        <a href="{% url 'users:logout' %}" class="btn-primary">Cerrar Sesion</a>
+        <form action="{% url 'users:logout' %}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn-primary">Cerrar Sesion</button>
+        </form>
     {% endif %}
 </nav>
