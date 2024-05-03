@@ -1,8 +1,16 @@
 <nav class="nav">
-    <a href="{% url 'users:signin' %}" aria-label="Go Back" title="Go Back">
-        <span>
-            <svg xmlns="http://www.w3.org/2000/svg" width="3em" height="3em" viewBox="0 0 24 24"><path fill="currentColor" d="M17.51 3.87L15.73 2.1L5.84 12l9.9 9.9l1.77-1.77L9.38 12z"/></svg>
-        </span>
-    </a>
-    <h1>{{ title }}</h1>
+    <div class="d-flex g-2 row align-items-center justify-content-center">
+        {% if backurl %}
+            <a href="{{ backurl }}" aria-label="Go Back" title="Go Back">
+                <span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="3em" height="3em" viewBox="0 0 24 24"><path fill="currentColor" d="M17.51 3.87L15.73 2.1L5.84 12l9.9 9.9l1.77-1.77L9.38 12z"/></svg>
+                </span>
+            </a>
+        {% endif %}
+        <h1>{{ title }}</h1>
+    </div>
+
+    {% if showlogout %}
+        <a href="{% url 'users:logout' %}" class="btn-primary">Cerrar Sesion</a>
+    {% endif %}
 </nav>

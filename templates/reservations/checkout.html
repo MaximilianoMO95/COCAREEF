@@ -4,46 +4,50 @@
 
 {% block head %}
 <style>
-    main {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 100vw;
-        min-height: 100vh;
-    }
-
     .reservation-checkout-form {
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: space-between;
+        justify-content: center;
         background: var(--bg-2);
         padding: 2rem;
         border: 0;
-        border-radius: var(--border-radius);
+        gap: 2em;
 
-        & input:is([type="submit"]) {
-                background: var(--btn-primary-bg);
-                color: var(--btn-primary-color);
-                padding: 0.5em 1em;
-                max-width: 350px;
-        }
+        height: 75vh;
+        width: 90vw;
+    }
+
+    .form-field {
+        display: flex;
+        flex-direction: column;
+        gap: 0.45em;
     }
 </style>
 {% endblock head %}
 
 {% block content %}
-<main>
+<main class="background-bg">
     <div class="glass-container">
-        <h1 class="title">Pago</h1>
+        {% include 'navbar.html' with title='Crear Reserva' backurl='/rooms' %}
 
         <form method="post" action="{{ url }}" class="reservation-checkout-form">
             {% csrf_token %}
-            {{ form.as_p }}
+            {% for field in form %}
+                <div class="form-field">
+                    {{ field.label_tag }}
+                    <div>
+                        {{ field }}
+                        {% if field.errors %}
+                            <small class="error">{{ field.errors|striptags  }}</small>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
 
             <h2>Total: <b id="total">${{ room.price }}</b></h2>
 
-            <input type="submit" value="Ir A Pagar" />
+            <button type="submit" class="btn-primary">Ir A Pagar</button>
         </form>
     </div>
 </main>

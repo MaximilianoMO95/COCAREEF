@@ -34,7 +34,9 @@ class OrderCreateView(View):
     template_name = 'reservations/checkout.html'
 
     def get(self, request, room_id):
-        form = ReservationForm()
+        form = ReservationForm(
+            initial={ 'days_of_stay': 1 }
+        )
         room = get_object_or_404(Room, id=room_id)
         return render(request, self.template_name, { 'form': form, 'room': room })
 

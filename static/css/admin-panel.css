@@ -1,0 +1,38 @@
+.admin-container {
+    min-height: 60vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    color: #FFFFFF;
+    padding: 1em;
+    border-radius: var(--border-radius);
+
+    min-width: 320px;
+    aspect-ratio: 2 / 1;
+
+    &:hover { opacity: 1; }
+
+    & .card-title {
+        font-size: 1.5rem;
+    }
+
+    & .card-body {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+.card-link                  { text-decoration: none; }
+.card-nuevo-usuario         { background-color: #A8A1ADA8; }
+.card-editar-usuario        { background-color: #9b6554a1; }
+.card-modificar-reserva     { background-color: #a5874693; }
+.card-catalogo-habitaciones { background-color: #6677a088; }

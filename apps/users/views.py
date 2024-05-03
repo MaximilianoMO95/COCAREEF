@@ -74,7 +74,7 @@ class UserRegistrationView(View):
 
 
 class EmployeeRegistrationView(View):
-    template_name = 'users/employee.html'
+    template_name = 'users/admin/employee.html'
 
     def get(self, request):
         form = EmployeeRegistrationForm()
@@ -105,7 +105,7 @@ class EmployeeRegistrationView(View):
 
 class EmployeeListView(ListView):
     model = Employee
-    template_name = 'users/employee_list.html'
+    template_name = 'users/admin/employee_list.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -113,7 +113,7 @@ class EmployeeListView(ListView):
 
 
 class EmployeeEditView(View):
-    template_name = 'users/employee_edit.html'
+    template_name = 'users/admin/employee_edit.html'
 
     def get(self, request, rut):
         employee = Employee.objects.get(rut=rut)

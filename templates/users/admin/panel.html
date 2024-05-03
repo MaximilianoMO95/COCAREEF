@@ -2,59 +2,67 @@
 {% load static %}
 
 {% block title %}Hotel Reef - Vista Admin{% endblock title %}
+
 {% block head %}
-    <link rel="stylesheet" href="{% static 'css/vistaadmin.css' %}">
+<link rel="stylesheet" href="{% static 'css/admin-panel.css' %}">
 {% endblock head %}
 
 {% block content %}
 <main class="container background-bg">
-  <div class="row justify-content-center align-items-center min-vh-100">
+    <div class="glass-container">
+        {% include 'navbar.html' with title='Bienvenid@' %}
 
-          <div class="admin-container">
-            <h2 class="bienvenido">Bienvenid@</h2>
-              <div class="row row-cols-1 row-cols-md-2 g-4">
-                  <div class="col-md-6">
-                      <a href="{% url 'users:employee' %}" class="card-link">
-                          <div class="card card-nuevo-usuario">
-                              <div class="card-body">
-                                  <h5 class="card-title">Nuevo Empleado</h5>
-                              </div>
-                          </div>
-                      </a>
-                  </div>
-                  <div class="col-md-6">
-                    <a href="{% url 'users:employee_list' %}" class="card-link">
-                          <div class="card card-editar-usuario">
-                              <div class="card-body">
-                                  <h5 class="card-title">Editar Empleado</h5>
-                              </div>
-                          </div>
-                      </a>
-                  </div>
-              </div>
-              <div class="row row-cols-1 row-cols-md-2 g-4">
-                  <div class="col-md-6">
-                    <a href="{% url 'reservations:list' %}" class="card-link"></a>
-                          <div class="card card-modificar-reserva">
-                              <div class="card-body">
-                                  <h5 class="card-title">Modificar Reserva</h5>
-                              </div>
-                          </div>
-                      </a>
-                  </div>
-                  <div class="col-md-6">
-                    <a href="{% url 'rooms:catalogue' %}" class="card-link"></a>
-                          <div class="card card-catalogo-habitaciones">
-                              <div class="card-body">
-                                  <h5 class="card-title">Catálogo de Habitaciones</h5>
-                              </div>
-                          </div>
-                      </a>
-                  </div>
-              </div>
-          </div>
-      </div>
-  </div>
+        <div class="admin-container">
+            <div class="d-flex row g-2 flex-wrap w-80vw align-items-center justify-content-center">
+                <div>
+                    <a href="{% url 'users:employee' %}" class="card-link" aria-label="Ir a crear un nuevo empleado">
+                        <div class="card card-nuevo-usuario">
+                            <div class="card-body">
+                                <img src="{% static 'img/newuser.png' %}" width="200" aria-hidden="true" />
+                                <h2 class="card-title">Nuevo Empleado</h2>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <div>
+                    <a href="{% url 'users:employee_list' %}" class="card-link" aria-label="Ir a editar un empleado">
+                        <div class="card card-editar-usuario">
+                            <div class="card-body">
+                                <img src="{% static 'img/edituser.png' %}" width="200" aria-hidden="true" />
+                                <h2 class="card-title">Editar Empleado</h2>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <div class="d-flex row g-2 mt-2 flex-wrap w-80vw align-items-center justify-content-center">
+                <div>
+                    <a href="{% url 'reservations:list' %}" class="card-link" aria-label="Ir a modificar una reserva">
+                        <div class="card card-modificar-reserva">
+                            <div class="card-body">
+                                <img src="{% static 'img/bed.png' %}" width="200" aria-hidden="true" />
+                                <h2 class="card-title">Modificar Reserva</h2>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <div>
+                    <a href="{% url 'rooms:catalogue' %}" class="card-link" aria-label="Ir a editar el catalogo de habitaciones">
+                        <div class="card card-catalogo-habitaciones">
+                            <div class="card-body">
+                                <img src="{% static 'img/catalogo.png' %}" width="200" aria-hidden="true" />
+                                <h2 class="card-title">Catalogo de Habitaciones</h2>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <a href="{% url 'users:logout' %}" class="btn-primary">Cerrar Sesion</a>
+    </div>
 </main>
 {% endblock content %}
-
