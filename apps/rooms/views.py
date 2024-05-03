@@ -30,7 +30,7 @@ class RoomCatalogueListView(ListView):
 
 
     def get_queryset(self):
-        queryset = super().get_queryset()
+        queryset = super().get_queryset().order_by('id')
         form = self.filter_form(self.request.GET)
 
         if form.is_valid():
