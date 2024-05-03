@@ -7,7 +7,7 @@ class Reservation(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     room = models.ForeignKey(Room, on_delete=models.CASCADE)
     start_date = models.DateField()
-    days_of_stay = models.PositiveIntegerField()
+    days_of_stay = models.PositiveIntegerField(default=1)
 
     is_paid = models.BooleanField(default=False)
 

@@ -1,5 +1,6 @@
 from urllib.parse import parse_qs
-from django.shortcuts import (HttpResponseRedirect, redirect, render, get_object_or_404)
+from django.http.response import HttpResponseForbidden, JsonResponse
+from django.shortcuts import (redirect, render, get_object_or_404)
 from django.views import View
 from django.contrib.admin.options import method_decorator
 from django.contrib.auth.views import login_required
@@ -10,7 +11,7 @@ from django.views.generic import ListView
 from apps.rooms.models import Room
 from apps.webpay.views import WebpayAPI
 from .models import Reservation
-from .forms import ReservationForm
+from .forms import (OrderCreateForm, ReservationForm)
 
 #TODO: Clean up the mess
 #TODO: Add required permisitions
@@ -25,16 +26,32 @@ class ListReservationsView(ListView):
         return context
 
 
+@method_decorator(login_required, name='dispatch')
 class EditReservationView(View):
-    template_name = 'reservations/admin/edit.html'
+    template_name = 'reservations/admin/update.html'
+
+    def get(self, request, reservation_id):
+        reservation = get_object_or_404(Reservation, id=reservation_id)
+        form = ReservationForm(instance=reservation)
+        return render(request, self.template_name, { 'form': form, 'reservation_id': reservation_id })
 
 
-#@method_decorator(login_required, name='dispatch')
+    def post(self, request, reservation_id):
+        reservation = get_object_or_404(Reservation, id=reservation_id)
+        form = ReservationForm(request.POST, instance=reservation)
+        if form.is_valid():
+            form.save()
+            return redirect('reservations:list')
+
+        return render(request, self.template_name, { 'form': form, 'reservation_id': reservation.id })
+
+
+@method_decorator(login_required, name='dispatch')
 class OrderCreateView(View):
     template_name = 'reservations/checkout.html'
 
     def get(self, request, room_id):
-        form = ReservationForm(
+        form = OrderCreateForm(
             initial={ 'days_of_stay': 1 }
         )
         room = get_object_or_404(Room, id=room_id)
@@ -42,7 +59,7 @@ class OrderCreateView(View):
 
 
     def post(self, request, room_id):
-        form = ReservationForm(request.POST)
+        form = OrderCreateForm(request.POST)
 
         if form.is_valid():
             # TODO: Check if room is available
@@ -68,15 +85,15 @@ class OrderCreateView(View):
 # TODO: Check if room is not already booked
 @method_decorator(login_required, name='dispatch')
 class OrderConfirmView(View):
-    template_name = 'payment/checkout.html'
+    template_name = 'reservations/confirm-checkout.html'
 
     def get(self, request):
-        order_id = 'hotel-reef-order-1234'
-        reservation_pk = request.session['reservation_id'];
-        reservation = Reservation.objects.get(pk=reservation_pk)
+        order_id = 'hotel-reef-order'
+        reservation_id = request.session['reservation_id']
+        reservation = Reservation.objects.get(pk=reservation_id)
         order_total_amount = reservation.total_amount()
 
-        return_url = request.scheme + '://' + get_current_site(request).domain + '/payment/result.html'
+        return_url = request.scheme + '://' + get_current_site(request).domain + '/reservations/payment/status'
         session_id = request.session.session_key
 
         webpay = WebpayAPI()
@@ -91,6 +108,20 @@ class OrderConfirmView(View):
             return http.JsonResponse({ 'message': 'Failed to create Webpay transaction' })
 
 
+    def delete(self, request):
+        reservation_id = request.session['reservation_id']
+        reservation = get_object_or_404(Reservation, id=reservation_id)
+
+        response = JsonResponse({ 'message': 'failed to cancel reservation' }, status=400)
+        if request.user == reservation.user:
+            reservation.delete()
+            del request.session['reservation_id']
+            response = JsonResponse({ 'message': 'reservation canceled' }, status=200)
+            response['HX-Redirect'] = '/rooms'
+
+        return response
+
+
 @method_decorator(login_required, name='dispatch')
 class PaymentResultView(View):
     template_name = 'reservations/payment_status.html'
@@ -101,7 +132,7 @@ class PaymentResultView(View):
 
         reject_token = 'TBK_TOKEN'
         if reject_token in query_params:
-            return render(request, self.template_name, { 'pay_status': 'PAGO CANCELADO' })
+            return render(request, self.template_name, { 'pay_status': 'CANCELADO' })
 
         token = 'token_ws'
         if token in query_params:
@@ -133,8 +164,8 @@ def book_room(request, room_id, start_date, days_of_stay) -> Reservation | None:
 
 
 @login_required
-def remove_booked_room(request, room_id):
-    room = Reservation.objects.get(id=room_id)
+def delete_reservation(request, reservation_id):
+    room = Reservation.objects.get(id=reservation_id)
     room.delete()
 
-    return HttpResponseRedirect(request.META['HTTP_REFERER'])
+    return redirect('reservations:list')

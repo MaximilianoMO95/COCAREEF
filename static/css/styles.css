@@ -3,13 +3,16 @@
     --glass-text-color: #FFFFFF;
 
     --bg-primary: #FFFFFF;
+    --bg-secondary: #CCCCCC;
 
     --text-color-primary: #000000;
 
     --btn-primary-bg: #56465A;
-    --btn-primary-color: #FFFFFF;
     --btn-secondary-bg: #222222;
+    --btn-special-bg: #333333;
+    --btn-primary-color: #FFFFFF;
     --btn-secondary-color: #CCCCCC;
+    --btn-special-color: #FFFFFF;
 
     --border-radius: 0.26em;
 }
@@ -86,14 +89,21 @@ select {
     align-items: center;
     justify-content: center;
     font-weight: bold;
-    background: var(--btn-secondary-bg, darkblue);
-    color: var(--btn-primary-color);
+    background: var(--btn-special-bg, darkblue);
+    color: var(--btn-special-color);
     text-decoration: none;
     border: none;
     border-radius: 0.25em;
     padding: 0.8em 1.6em;
 
     min-width: 200px;
+}
+
+:is(input[type=checkbox]) {
+    border-radius: 0.25em;
+
+    width: 1.45em;
+    height: 1.45em;
 }
 
 /************************** UTILITY CLASSES **************************/
@@ -222,12 +232,10 @@ select {
 .error { color: #FF7A7A; }
 .icon { color: var(--text-color-primary); }
 
-.btn-primary {
+:is(.btn-primary, .btn-secondary, .btn-fill) {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-weight: bold;
-    background: var(--btn-primary-bg, darkblue);
     color: var(--btn-primary-color);
     text-decoration: none;
     border: none;
@@ -237,19 +245,17 @@ select {
     min-width: 200px;
 }
 
+.btn-primary {
+    background: var(--btn-primary-bg, darkblue);
+}
+
 .btn-secondary {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: normal;
     background: none;
     border: 0.15em solid var(--btn-secondary-bg, darkgray);
-    border-radius: 0.25em;
-    color: var(--btn-secondary-color);
-    text-decoration: none;
-    padding: 0.8em 1.6em;
+}
 
-    min-width: 150px;
+.btn-secondary.btn-fill {
+    background: var(--btn-secondary-bg);
 }
 
 .glass-container {
@@ -292,6 +298,18 @@ select {
     justify-content: center;
     align-items: start;
     gap: 0.8em;
+
+    &:has(input[type=checkbox]) {
+        background: var(--btn-special-bg);
+        color: var(--btn-special-color);
+        border-radius: 0.25em;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        gap: 1em;
+        padding: 0.8em 1.2em;
+        min-width: 150px;
+    }
 }
 
 /************************** NAVBAR **************************/

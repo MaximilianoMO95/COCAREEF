@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Hotel Reef - Checkout{% endblock title %}
+
+{% block content %}
+<main class="background-bg">
+    <div class="glass-container">
+        <div class="d-flex justify-content-center align-items-center g-2 h-80vh">
+            <form method="post" action="{{ url }}">
+                <h1 class="text-align-center mb-5">Total A Pagar: <b>{{ total_amount }}</b></h1>
+
+                <div class="d-flex col w-100 g-2">
+                    <button type="submit" class="btn-primary">Ir a pagar</button>
+                    <button
+                        class="btn-secondary btn-fill"
+                        type="button"
+                        hx-delete='{% url 'reservations:payment' %}'
+                        hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
+                    >
+                        Cancelar Reservacion
+                    </button>
+                </div>
+                <input type="hidden" name="token_ws" value="{{ token_ws }}" />
+            </form>
+
+        </div>
+    </div>
+</main>
+{% endblock content %}
+
+{% block head %}
+<script src="{% static 'script/htmx.min.js' %}"></script>
+<style>
+    form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--bg-2);
+            padding: 2rem;
+            border: 0;
+            border-radius: var(--border-radius);
+    }
+</style>
+{% endblock head %}
