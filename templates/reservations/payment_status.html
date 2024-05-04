@@ -1,14 +1,72 @@
 {% extends "base.html" %}
+{% load static %}
+{% load qr_code %}
+{% load humanize %}
 
 {% block title %}Hotel Reef - Payment Status{% endblock title %}
 
 {% block content %}
 <main class="background-bg">
     <div class="glass-container">
-        <div class="d-flex justify-content-space-around align-items-center g-1 col min-h-80vh">
-            <h1 class="text-align-center">Estado Del Pago: {{ pay_status }}</h1>
-            <a href="{% url 'rooms:catalogue' %}" class="btn-primary">Volver A Pagina Principal</a>
+        <div id="invoice" class="d-flex justify-content-space-around align-items-center g-2 col min-h-80vh invoice">
+            <h1 class="text-align-center w-100 my-1">Recibo</h1>
+            <div class="card-container">
+                <h2 class="mb-1">Datos De Pago</h2>
+                <p class="text-align-center">Estado Del Pago: {{ response_data.status }}</p>
+                <p class="text-align-center">Orden De Compra: {{ response_data.buy_order }}</p>
+                <p class="text-align-center">Total: ${{ response_data.amount|intcomma }}</p>
+            </div>
+            <div class="card-container mt-1">
+                <h2>Codigo QR</h2>
+                {% qr_from_text qr_url %}
+            </div>
+
+            <div id="action-buttons" class="d-flex col w-100 justify-content-center align-items-center g-1">
+                <button id="download-btn" class="btn-primary w-80">Descargar Recibo</button>
+                <a href="{% url 'rooms:catalogue' %}" class="btn-secondary w-80">Volver A Pagina Principal</a>
+            </div>
         </div>
     </div>
 </main>
+
+<script>
+    const button = document.getElementById('download-btn');
+
+    function generatePDF() {
+        const element = document.getElementById('invoice');
+        const virtualElem = element.cloneNode(true)
+        const actionBtns = virtualElem.querySelector('#action-buttons');
+
+        virtualElem.removeChild(actionBtns);
+        html2pdf().from(virtualElem).save();
+    }
+
+    button.addEventListener('click', generatePDF);
+</script>
 {% endblock content %}
+
+{% block head %}
+<script src="{% static 'script/html2pdf.bundle.min.js' %}"></script>
+<style>
+    .invoice {
+        background: #FFF;
+        color: #000;
+        padding: 1em 2em;
+        border-radius: 0.8em;
+    }
+
+    .btn-secondary {
+        color: inherit;
+    }
+
+    .card-container {
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+        justify-content: center;
+        gap: 1em;
+
+        & p { font-size: 1.3em; }
+    }
+</style>
+{% endblock head %}
