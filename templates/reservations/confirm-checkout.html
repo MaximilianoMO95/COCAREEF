@@ -12,14 +12,14 @@
                 <h1 class="text-align-center mb-5">{% trans "Total Payment Amount" %}: <b>{{ total_amount }}</b></h1>
 
                 <div class="d-flex col w-100 g-2">
-                    <button type="submit" class="btn-primary">{% trans "Pay Reservation" %}</button>
+                    <button type="submit" class="btn-primary">{% trans "Reservation Payment" %}</button>
                     <button
                         class="btn-secondary btn-fill"
                         type="button"
                         hx-delete='{% url 'reservations:payment' %}'
                         hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
                     >
-                        {% trans "Abort Reservation" %}
+                        {% trans "Cancel Reservation" %}
                     </button>
                 </div>
                 <input type="hidden" name="token_ws" value="{{ token_ws }}" />
