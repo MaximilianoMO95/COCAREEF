@@ -12,10 +12,10 @@
                 <h1 class="text-align-center w-100 mb-2">{{ reservation.room.name }}</h1>
                 <div class="d-flex col g-1 flex-wrap">
                     <h2>Datos Reservacion</h2>
-                    <p>Fecha De Inicio: {{ reservation.start_date }}</p>
-                    <p>Dias Reservados: {{ reservation.days_of_stay }}</p>
-                    <p>Estado De Pago: {{ reservation.payment_status.name }}</p>
-                    <p>Porcentaje Abonado: {{ reservation.deposit_percentage }}%</p>
+                    <p>Fecha De Inicio: <b>{{ reservation.start_date }}</b></p>
+                    <p>Dias Reservados: <b>{{ reservation.days_of_stay }}</b></p>
+                    <p>Porcentaje Abonado: <b>{{ reservation.deposit_percentage }}%</b></p>
+                    <p>Estado De Pago: <b>{{ reservation.payment_status.name }}</b></p>
                     <p class="mt-1">Cantidad Por Pagar: <b>${{ reservation.calc_remaining_amount|intcomma }} CPL</b></p>
                 </div>
                 <div class="d-flex col g-1 flex-wrap mt-2">
@@ -23,6 +23,13 @@
                     <p>Nombre: {{ reservation.user.first_name }} {{ reservation.user.last_name }}</p>
                     <p>Email: {{ reservation.user.email }}</p>
                 </div>
+
+                <form method="post" class="mt-2 d-flex justify-content-center align-items-center w-100">
+                    {% csrf_token %}
+                    <input type="hidden" name="reservation_id" value="{{ reservation.id }}">
+                    <button type="submit" class="btn-primary" {% if True %}disabled{% endif %}>Marcar Como Pagado</button>
+                </form>
+
             </div>
         </div>
     </div>
