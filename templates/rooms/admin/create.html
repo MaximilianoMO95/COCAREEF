@@ -1,11 +1,12 @@
 {% extends "base.html" %}
 
-{% block title %}Hotel Reef - Crear Habitacion{% endblock title %}
+{% block title %}{% trans "Hotel Reef - Add Room" %}{% endblock title %}
 
 {% block content %}
 <main class="background-bg">
     <div class="glass-container">
-        {% include 'navbar.html' with title='Crear Habitacion' backurl='/rooms' %}
+        {% trans "Add A New Room" as title %}
+        {% include 'navbar.html' with title=title backurl='/rooms' %}
 
         <div class="mt-3 d-flex col justify-content-center align-items-center w-100 min-h-60vh">
             <form method="POST">
@@ -20,7 +21,7 @@
                     </div>
                 {% endfor %}
 
-                <button type="submit" class="btn-primary mt-3">Crear Habitacion</button>
+                <button type="submit" class="btn-primary mt-3">{% trans "Create Room" %}</button>
             </form>
         </div>
     </div>

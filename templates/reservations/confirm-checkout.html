@@ -1,24 +1,24 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %}Hotel Reef - Checkout{% endblock title %}
+{% block title %}{% trans "Hotel Reef - Confirm Reservation" %}{% endblock title %}
 
 {% block content %}
 <main class="background-bg">
     <div class="glass-container">
         <div class="d-flex justify-content-center align-items-center g-2 h-80vh">
             <form method="post" action="{{ url }}">
-                <h1 class="text-align-center mb-5">Total A Pagar: <b>{{ total_amount }}</b></h1>
+                <h1 class="text-align-center mb-5">{% trans "Total Payment Amount" %}: <b>{{ total_amount }}</b></h1>
 
                 <div class="d-flex col w-100 g-2">
-                    <button type="submit" class="btn-primary">Ir a pagar</button>
+                    <button type="submit" class="btn-primary">{% trans "Pay Reservation" %}</button>
                     <button
                         class="btn-secondary btn-fill"
                         type="button"
                         hx-delete='{% url 'reservations:payment' %}'
                         hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
                     >
-                        Cancelar Reservacion
+                        {% trans "Abort Reservation" %}
                     </button>
                 </div>
                 <input type="hidden" name="token_ws" value="{{ token_ws }}" />

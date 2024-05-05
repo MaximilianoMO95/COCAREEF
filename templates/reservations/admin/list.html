@@ -1,28 +1,29 @@
 {% extends "base.html" %}
 
-{% block title %}Hotel Reef - Lista de reservaciones{% endblock title %}
+{% block title %}{% trans "Hotel Reef - Reservation List" %}{% endblock title %}
 
 {% block content %}
 <main class="background-bg">
     <div class="glass-container">
-        {% include 'navbar.html' with title='Lista De Reservaciones' backurl='/admin-panel' %}
+        {% trans "Reservations List" as title %}
+        {% include 'navbar.html' with title=title backurl='/admin-panel' %}
 
         <div class="d-flex col justify-content-center align-items-center w-100 my-3">
-            <form id="filter-form" method="GET" action="{{ url }}">
+            <form id="filter-form" method="get" action="{{ url }}">
                 {% for field in filter_form %}
                     <div class="input-group">
                         {{ field.label_tag }}
                         {{ field }}
                     </div>
                 {% endfor %}
-                <button type="submit" class="btn-primary">Aplicar Filtro</button>
+                <button type="submit" class="btn-primary">{% trans "Apply" %}</button>
             </form>
 
             {% if page_obj %}
                 <div class="card-list-ctn mt-3">
                     <div class="mb-1 d-flex justify-content-start align-items-center row w-100">
-                        <h2 class="w-100 mt-2 mb-1">Lista De Reservas</h2>
-                        <a role="button" class="btn-primary" href="{% url 'reservations:create' %}">Nueva Reserva</a>
+                        <h2 class="w-100 mt-2 mb-1">{% trans "Reservations List" %}</h2>
+                        <a role="button" class="btn-primary" href="{% url 'reservations:create' %}">{% trans "New Reservation" %}</a>
                     </div>
 
                     {% for reservation in page_obj %}
@@ -33,8 +34,8 @@
                                     <h2>{{ reservation.room.name }}</h2>
                                 </div>
                                 <div class="buttons d-flex row g-1 mt-2">
-                                    <a role="button" href="{% url 'reservations:delete' reservation.id %}" class="btn-secondary">Eliminar</a>
-                                    <a href="{% url 'reservations:edit' reservation.id %}" role="button" class="btn-primary">Editar</a>
+                                    <a role="button" href="{% url 'reservations:delete' reservation.id %}" class="btn-secondary">{% trans "Delete" %}</a>
+                                    <a href="{% url 'reservations:edit' reservation.id %}" role="button" class="btn-primary">{% trans "Edit" %}</a>
                                 </div>
                             </div>
                         </div>
@@ -43,7 +44,7 @@
                     <div class="pagination mt-2">
                         <ul>
                             {% if page_obj.has_previous %}
-                                <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+                            <a href="?page={{ page_obj.previous_page_number }}">{% trans "Previus" %}</a>
                                 <a class="pagination-link" href="?page=1">1</a>
                             {% endif %}
 
@@ -51,14 +52,14 @@
 
                             {% if page_obj.has_next %}
                                 <a class="pagination-link" href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages }}</a>
-                                <a href="?page={{ page_obj.next_page_number }}">next</a>
+                                <a href="?page={{ page_obj.next_page_number }}">{% trans "Next" %}</a>
                             {% endif %}
                         </ul>
                     </div>
                 </div>
             {% else %}
                 <div class="min-h-60vh d-flex justify-content-center align-items-center w-100">
-                    <h1>No Se Encontro Ninguna Reserva</h1>
+                    <h1>{% trans "Couldn't found any reservation yet" %}</h1>
                 </div>
             {% endif %}
         </div>

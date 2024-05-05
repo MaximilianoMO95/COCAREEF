@@ -1,22 +1,24 @@
 {% extends "base.html" %}
 {% load i18n %}
+{% load humanize %}
 
-{% block title %}Hotel Reef - Catalogo De Habitaciones{% endblock title %}
+{% block title %}{% trans "Hotel Reef - Catalogo De Habitaciones" %}{% endblock title %}
 
 {% block content %}
 <main class="background-bg">
     <div class="glass-container">
-        {% include 'navbar.html' with title='Catalogo De Habitaciones' showlogout='true' %}
+        {% trans "Rooms Catalogue" as title %}
+        {% include 'navbar.html' with title=title showlogout='true' %}
 
         {% if page_obj %}
-            <form id="filter-form" class="my-3" method="GET" action="{% url 'rooms:catalogue' %}">
+            <form id="filter-form" class="my-3" method="get" action="{{ url }}">
                 {% for field in filter_form %}
                     <div class="input-group">
                         {{ field.label_tag }}
                         {{ field }}
                     </div>
                 {% endfor %}
-                <button type="submit" class="btn-primary">Aplicar Filtro</button>
+                <button type="submit" class="btn-primary">{% trans "Apply" %}</button>
             </form>
 
             <div class="card-list-ctn">
@@ -26,10 +28,10 @@
                         <div class="card-body">
                             <div class="d-flex col info g-1">
                                 <h1>{{ room.name }}</h1>
-                                <h2>${{ room.price }}</h2>
+                                <h2>${{ room.price|intcomma }}</h2>
                             </div>
-                            <a role="button" class="btn-primary mt-2" href="{% url 'reservations:checkout' room.id %}">Reservar Habitacion</a>
-                            <a role="button" class="btn-secondary" href="{% url 'rooms:details' room.id %}">Mostrar Detalles</a>
+                            <a role="button" class="btn-primary mt-2" href="{% url 'reservations:checkout' room.id %}">{% trans "Book This Room" %}</a>
+                            <a role="button" class="btn-secondary" href="{% url 'rooms:details' room.id %}">{% trans "Show Details" %}</a>
                         </div>
                     </div>
                 {% endfor %}
@@ -37,7 +39,7 @@
                 <div class="pagination mt-2">
                     <ul>
                         {% if page_obj.has_previous %}
-                            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+                            <a href="?page={{ page_obj.previous_page_number }}">{% trans "Previus" %}</a>
                             <a class="pagination-link" href="?page=1">1</a>
                         {% endif %}
 
@@ -45,13 +47,13 @@
 
                         {% if page_obj.has_next %}
                             <a class="pagination-link" href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages }}</a>
-                            <a href="?page={{ page_obj.next_page_number }}">next</a>
+                            <a href="?page={{ page_obj.next_page_number }}">{% trans "Next" %}</a>
                         {% endif %}
                     </ul>
                 </div>
             </div>
         {% else %}
-            <h1>Can't find any room</h1>
+            <h1>{% trans "Couldn't found any room" %}</h1>
         {% endif %}
     </div>
 </main>
