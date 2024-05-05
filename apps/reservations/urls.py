@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import (CreateReservationView, DetailsReservationView, EditReservationView, ListReservationsView, PaymentResultView, OrderConfirmView, OrderCreateView, delete_reservation)
+from .views import (CreateReservationView, DetailsReservationView, EditReservationView, ListReservationsView, PaymentResultView, OrderConfirmView, OrderCreateView, DeleteReservationView)
 
 app_name = 'reservations'
 
@@ -9,7 +9,7 @@ urlpatterns = [
     path('payment/', OrderConfirmView.as_view(), name='payment'),
     path('payment/status/', PaymentResultView.as_view(), name='payment_status'),
     path('edit/<int:reservation_id>', EditReservationView.as_view(), name='edit'),
-    path('delete/<int:reservation_id>', delete_reservation, name='delete'),
+    path('delete/<int:reservation_id>', DeleteReservationView.as_view(), name='delete'),
     path('create/', CreateReservationView.as_view(), name='create'),
 
     path('details/<int:id>', DetailsReservationView.as_view(), name='details'),

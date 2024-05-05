@@ -11,6 +11,7 @@ from django.contrib.sites.shortcuts import get_current_site
 import django.http as http
 from django.views.generic import ListView
 from django.views.generic.list import Paginator
+from django.contrib.auth.mixins import PermissionRequiredMixin
 
 from apps.rooms.models import Room
 from apps.webpay.views import WebpayAPI
@@ -18,12 +19,14 @@ from .models import Reservation
 from .forms import (OrderCreateForm, ReservationFilterForm, ReservationForm)
 
 @method_decorator(login_required, name='dispatch')
-class ListReservationsView(ListView):
+class ListReservationsView(PermissionRequiredMixin, ListView):
     model = Reservation
     template_name = 'reservations/admin/list.html'
     filter_form = ReservationFilterForm
+    permission_required = 'reservations.can_view_reservation'
 
     def get_context_data(self, **kwargs):
+        print(self.request.user.get_all_permissions())
         context = super().get_context_data(**kwargs)
         context['filter_form'] = self.filter_form(self.request.GET)
 
@@ -52,8 +55,9 @@ class ListReservationsView(ListView):
 
 
 @method_decorator(login_required, name='dispatch')
-class CreateReservationView(View):
+class CreateReservationView(PermissionRequiredMixin, View):
     template_name = 'reservations/admin/create.html'
+    permission_required = 'reservations.can_create_reservation'
 
     def get(self, request):
         form = ReservationForm()
@@ -78,8 +82,9 @@ class CreateReservationView(View):
 
 
 @method_decorator(login_required, name='dispatch')
-class EditReservationView(View):
+class EditReservationView(PermissionRequiredMixin, View):
     template_name = 'reservations/admin/update.html'
+    permission_required = 'reservations.can_edit_reservation'
 
     def get(self, request, reservation_id):
         reservation = get_object_or_404(Reservation, id=reservation_id)
@@ -236,17 +241,21 @@ def book_room(request, room_id, start_date, days_of_stay) -> Reservation | None:
         return reservation
 
 
-@login_required
-def delete_reservation(request, reservation_id):
-    room = Reservation.objects.get(id=reservation_id)
-    room.delete()
+@method_decorator(login_required, name='dispatch')
+class DeleteReservationView(PermissionRequiredMixin, View):
+    permission_required = 'reservations.can_delete_reservation'
 
-    return redirect('reservations:list')
+    def get(self, request, reservation_id):
+        room = Reservation.objects.get(id=reservation_id)
+        room.delete()
+
+        return redirect('reservations:list')
 
 
 @method_decorator(login_required, name='dispatch')
-class DetailsReservationView(View):
+class DetailsReservationView(PermissionRequiredMixin, View):
     template_name = 'reservations/admin/details.html'
+    permission_required = 'reservations.can_view_reservation'
 
     def get(self, request, *args, **kwargs):
         if 'id' in kwargs:
@@ -273,5 +282,3 @@ class DetailsReservationView(View):
         reservation.update_payment_status('FP')
 
         return render(request, self.template_name, { 'reservation': reservation })
-
-
