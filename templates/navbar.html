@@ -1,3 +1,4 @@
+{% load i18n %}
 <nav class="nav">
     <div class="d-flex g-2 row align-items-center justify-content-center">
         {% if backurl %}
@@ -7,13 +8,31 @@
                 </span>
             </a>
         {% endif %}
-        <h1>{{ title }}</h1>
+        <h1>{% blocktrans %}{{ title }}{% endblocktrans %}</h1>
     </div>
 
-    {% if showlogout %}
-        <form action="{% url 'users:logout' %}" method="post">
+    <div class="d-flex justify-content-center align-items-center g-2 row flex-wrap">
+        <form class="d-flex row g-1" action="{% url 'set_language' %}" method="post">
             {% csrf_token %}
-            <button type="submit" class="btn-primary">Cerrar Sesion</button>
+            <noscript>
+                <button type="submit" class="btn-secondary">{% trans 'Switch Language' %}</button>
+            </noscript>
+
+            <input type="hidden" name="next" value="{{ request.path }}">
+            <select name="language" onchange="this.form.submit()">
+                {% for lang_code, lang_name in LANGUAGES %}
+                    <option value="{{ lang_code }}" {% if lang_code == LANGUAGE_CODE %}selected{% endif %}>
+                        {{ lang_name }}
+                    </option>
+                {% endfor %}
+            </select>
         </form>
-    {% endif %}
+
+        {% if showlogout %}
+            <form action="{% url 'users:logout' %}" method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn-primary">{% trans 'Log Out' %}</button>
+            </form>
+        {% endif %}
+    </div>
 </nav>
