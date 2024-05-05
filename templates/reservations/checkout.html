@@ -1,14 +1,16 @@
 {% extends "base.html" %}
 
-{% block title %}Hotel Reef - Checkout{% endblock title %}
+{% block title %}{% trans "Hotel Reef - Checkout" %}{% endblock title %}
 
 {% block content %}
 <main class="background-bg">
     <div class="glass-container">
-        {% include 'navbar.html' with title='Crear Reserva' backurl='/rooms' %}
+        {% trans "Create Reservation" as title %}
+        {% include 'navbar.html' with title=title backurl='/rooms' %}
+
         <div class="min-w-80vw d-flex justify-content-center align-items-center g-1 flex-wrap">
             <form method="post" action="{{ url }}" class="reservation-checkout-form">
-                <h2 class="my-1 w-100 text-align-center total">Total: <b id="total">${{ room.price }}</b></h2>
+                <h2 class="my-1 w-100 text-align-center total">{% trans "Total" %}: <b id="total">${{ room.price }}</b></h2>
                 {% csrf_token %}
                 {% for field in form %}
                     <div class="input-group">
@@ -26,7 +28,7 @@
                     </div>
                 {% endfor %}
 
-                <button type="submit" class="btn-primary w-100">Reservar Habitacion</button>
+                <button type="submit" class="btn-primary w-100">{% trans "Book This Room" %}</button>
             </form>
         </div>
     </div>

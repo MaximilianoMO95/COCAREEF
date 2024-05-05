@@ -3,27 +3,27 @@
 {% load qr_code %}
 {% load humanize %}
 
-{% block title %}Hotel Reef - Payment Status{% endblock title %}
+{% block title %}{% trans "Hotel Reef - Payment Status" %}{% endblock title %}
 
 {% block content %}
 <main class="background-bg">
     <div class="glass-container">
         <div id="invoice" class="d-flex justify-content-space-around align-items-center g-2 col min-h-80vh invoice">
-            <h1 class="text-align-center w-100 my-1">Recibo</h1>
+            <h1 class="text-align-center w-100 my-1">{% trans "Receipt" %}</h1>
             <div class="card-container">
                 <h2 class="mb-1">Datos De Pago</h2>
-                <p class="text-align-center">Estado Del Pago: {{ response_data.status }}</p>
-                <p class="text-align-center">Orden De Compra: {{ response_data.buy_order }}</p>
-                <p class="text-align-center">Total: ${{ response_data.amount|intcomma }}</p>
+                <p class="text-align-center">{% trans "Payment Status" %}: {{ response_data.status }}</p>
+                <p class="text-align-center">{% trans "Buy Order" %}: {{ response_data.buy_order }}</p>
+                <p class="text-align-center">{% trans "Total" %}: ${{ response_data.amount|intcomma }}</p>
             </div>
             <div class="card-container mt-1">
-                <h2>Codigo QR</h2>
+                <h2>{% trans "QR Code" %}</h2>
                 {% qr_from_text qr_url %}
             </div>
 
             <div id="action-buttons" class="d-flex col w-100 justify-content-center align-items-center g-1">
-                <button id="download-btn" class="btn-primary w-80">Descargar Recibo</button>
-                <a href="{% url 'rooms:catalogue' %}" class="btn-secondary w-80">Volver A Pagina Principal</a>
+                <button id="download-btn" class="btn-primary w-80">{% trans "Download Receipt" %}</button>
+                <a href="{% url 'rooms:catalogue' %}" class="btn-secondary w-80">{% trans "Go Back To The Main Page" %}</a>
             </div>
         </div>
     </div>

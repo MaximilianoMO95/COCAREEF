@@ -1,28 +1,31 @@
 {% extends "base.html" %}
+{% load i18n %}
+{% load humanize %}
 
-{% block title %}Hotel Reef - Catalogo De Habitaciones{% endblock title %}
+{% block title %}{% trans "Hotel Reef - Catalogo De Habitaciones" %}{% endblock title %}
 
 {% block content %}
 <main class="background-bg">
     <div class="glass-container">
-        {% include 'navbar.html' with title='Administrar Catalogo De Habitaciones' backurl='/admin-panel' %}
+        {% trans "Manage Rooms Catalogue" as title %}
+        {% include 'navbar.html' with title=title backurl='/admin-panel' %}
 
         {% if object_list %}
             <div class="d-flex col justify-content-center align-items-center w-100 my-3">
-                <form id="filter-form" method="GET" action="{% url 'rooms:catalogue' %}">
+                <form id="filter-form" method="get" action="{{ url }}">
                     {% for field in filter_form %}
                         <div class="input-group">
                             {{ field.label_tag }}
                             {{ field }}
                         </div>
                     {% endfor %}
-                    <button type="submit" class="btn-primary">Aplicar Filtro</button>
+                    <button type="submit" class="btn-primary">{% trans "Apply" %}</button>
                 </form>
 
                 <div class="d-flex justify-content-center align-items-center g-2 w-100 col mt-2">
                     <div class="mb-1 d-flex justify-content-start align-items-center row w-100">
-                        <h2 class="w-100 mt-2 mb-1">Lista De Habitaciones</h2>
-                        <a role="button" class="btn-primary" href="{% url 'rooms:create' %}">Nueva Habitacion</a>
+                        <h2 class="w-100 mt-2 mb-1">{% trans "Rooms List" %}</h2>
+                        <a role="button" class="btn-primary" href="{% url 'rooms:create' %}">{% trans "Add New Room" %}</a>
                     </div>
 
                     <div class="card-list-ctn" role="list">
@@ -32,9 +35,9 @@
                                 <div class="card-body">
                                     <div class="d-flex col info g-1">
                                         <h1>{{ room.name }}</h1>
-                                        <h2>${{ room.price }}</h2>
+                                        <h2>${{ room.price|intcomma }}</h2>
                                     </div>
-                                    <a role="button" class="btn-primary mt-2" href="{% url 'rooms:edit' room.id %}">Editar</a>
+                                    <a role="button" class="btn-primary mt-2" href="{% url 'rooms:edit' room.id %}">{% trans "Edit" %}</a>
                                 </div>
                             </div>
                         {% endfor %}
@@ -42,7 +45,7 @@
                         <div class="pagination mt-2">
                             <ul>
                                 {% if page_obj.has_previous %}
-                                    <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+                                    <a href="?page={{ page_obj.previous_page_number }}">{% trans "Previus" %}</a>
                                     <a class="pagination-link" href="?page=1">1</a>
                                 {% endif %}
 
@@ -50,7 +53,7 @@
 
                                 {% if page_obj.has_next %}
                                     <a class="pagination-link" href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages }}</a>
-                                    <a href="?page={{ page_obj.next_page_number }}">next</a>
+                                    <a href="?page={{ page_obj.next_page_number }}">{% trans "Next" %}</a>
                                 {% endif %}
                             </ul>
                         </div>
@@ -59,7 +62,7 @@
                 </div>
             </div>
         {% else %}
-            <h1>No Se Encontro Ninguna Habitacion</h1>
+            <h1>{% trans "Couldn't found any room" %}</h1>
         {% endif %}
     </div>
 </main>
