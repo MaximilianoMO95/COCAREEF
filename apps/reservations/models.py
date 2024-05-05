@@ -46,6 +46,14 @@ class Reservation(models.Model):
 
     objects = ReservationQuerySet.as_manager()
 
+    class Meta:
+        permissions = [
+            ('can_view_reservation', '[Custom] Can view a reservation'),
+            ('can_add_reservation', '[Custom] Can add a reservation'),
+            ('can_change_reservation', '[Custom] Can change a reservation'),
+            ('can_delete_reservation', '[Custom] Can delete a reservation'),
+        ]
+
     def is_fully_paid(self) -> bool:
         return (self.payment_status.code == 'FP')
 
