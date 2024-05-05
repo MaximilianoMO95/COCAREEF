@@ -18,7 +18,7 @@ class Command(BaseCommand):
             action='store_true',
             help='Creates fake rooms <ex: --create-fake-rooms 20>'
         )
-        parser.add_argument('count', nargs=1, type=int, default=1, help='Number of fake rooms to create')
+        parser.add_argument('count', nargs='?', type=str, default='0', help='Number of fake rooms to create')
 
 
     def handle(self, *args, **options):
@@ -34,14 +34,14 @@ class Command(BaseCommand):
         self.stdout.write(self.style.SUCCESS('All users deleted'))
 
 
-    def create_fake_rooms(self, count):
+    def create_fake_rooms(self, count: str):
         faker = Faker()
 
         room_types = ['tourist', 'premium']
-        for i in range(count):
+        for i in range(int(count)):
             room_type = random.choice(room_types)
             room_type_instance, _ = RoomType.objects.get_or_create(name=room_type)
-            room_name = 'Habitacion %s' % i
+            room_name = '[FAKE] Habitacion %s' % i
 
             # Create a fake user
             Room.objects.create(

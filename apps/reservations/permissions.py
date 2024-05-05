@@ -27,5 +27,3 @@ can_change_reservation, _ = Permission.objects.get_or_create(
     name='[Custom] Can change a reservation',
     content_type=content_type,
 )
-
-employee_group.permissions.add(can_view_reservation, can_change_reservation, can_delete_reservation, can_add_reservation)

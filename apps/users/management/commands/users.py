@@ -1,9 +1,8 @@
 import random
-from django.contrib.auth.models import Group
+from django.contrib.auth.models import Group, Permission
 from django.core.management.base import BaseCommand
 from faker import Faker
 
-import apps.reservations.permissions as reservation_permissions
 from apps.users.models import (Customer, Employee, User)
 
 class Command(BaseCommand):
@@ -26,28 +25,35 @@ class Command(BaseCommand):
             action='store_true',
             help='Set group permissions',
         )
-        parser.add_argument('count', nargs=1, type=int, default=1, help='Number of fake users to create')
+        parser.add_argument(
+            'count',
+            default='0',
+            nargs='?',
+            type=str,
+            help='Number of fake users to create',
+        )
 
 
     def handle(self, *args, **options):
         match options:
+            case { 'set_group_permissions': True }: self.set_group_permissions()
             case { 'delete_all': True }: self.delete_all()
             case { 'create_fake_users': True }: self.create_fake_users(options['count'][0])
-            case { 'set_group_permissions': True }: self.set_group_permissions()
             case _: self.stdout.write(self.style.WARNING('No action specified. Use --help for more options'))
 
 
     def delete_all(self):
         Customer.objects.all().delete()
+        Employee.objects.all().delete()
         User.objects.all().delete()
         self.stdout.write(self.style.SUCCESS('All users deleted'))
 
 
-    def create_fake_users(self, count):
+    def create_fake_users(self, count: str):
         faker = Faker()
 
         user_type = random.choice([0, 1])
-        for _ in range(count):
+        for _ in range(int(count)):
             user_instance = User.objects.create(
                 username='Faker-' + faker.user_name(),
                 first_name=faker.first_name(),
@@ -64,13 +70,19 @@ class Command(BaseCommand):
 
 
     def set_group_permissions(self):
-        # Create groups if they don't exist
         #customer_group, _ = Group.objects.get_or_create(name='customer')
         employee_group, _ = Group.objects.get_or_create(name='employee')
 
-        employee_group.permissions.add(
-            reservation_permissions.can_view_reservation,
-            reservation_permissions.can_change_reservation,
-            reservation_permissions.can_delete_reservation,
-            reservation_permissions.can_add_reservation,
-        ); self.stdout.write(self.style.SUCCESS('Permissions set for employee group'))
+        reservation_permissions = Permission.objects.filter(
+            content_type__app_label='reservations',
+            codename__in=[
+                'can_view_reservation',
+                'can_add_reservation',
+                'can_delete_reservation',
+                'can_change_reservation'
+            ]
+        )
+        for permission in reservation_permissions:
+            employee_group.permissions.add(permission)
+
+        self.stdout.write(self.style.SUCCESS('Permissions set for employee group'))
