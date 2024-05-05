@@ -1,17 +1,18 @@
 from datetime import date
 from urllib.parse import parse_qs
-from django.http.response import HttpResponseForbidden, JsonResponse
+from django.contrib.auth.decorators import login_required
+from django.core import signing
+from django.http.response import Http404, HttpResponse, JsonResponse
 from django.shortcuts import (redirect, render, get_object_or_404)
 from django.views import View
 from django.contrib.admin.options import method_decorator
-from django.contrib.auth.views import login_required
 from django.contrib.sites.shortcuts import get_current_site
 import django.http as http
 from django.views.generic import ListView
 
 from apps.rooms.models import Room
 from apps.webpay.views import WebpayAPI
-from .models import Reservation
+from .models import Reservation, ReservationPaymentStatus
 from .forms import (OrderCreateForm, ReservationForm)
 
 @method_decorator(login_required, name='dispatch')
@@ -91,7 +92,7 @@ class OrderConfirmView(View):
         order_id = 'hotel-reef-order'
         reservation_id = request.session['reservation_id']
         reservation = Reservation.objects.get(pk=reservation_id)
-        order_total_amount = reservation.total_amount()
+        order_total_amount = reservation.calc_deposit_amount()
 
         return_url = request.scheme + '://' + get_current_site(request).domain + '/reservations/payment/status'
         session_id = request.session.session_key
@@ -140,23 +141,31 @@ class PaymentResultView(View):
 
         response_data = webpay.commit_transaction(token)
         if response_data:
-            pay_status = response_data['status']
-            return render(request, self.template_name, { 'pay_status': pay_status })
+            reservation_id = request.session['reservation_id']
+            qr_url = Reservation.gen_qrcode_url(request, reservation_id)
+
+            reservation: Reservation = Reservation.objects.get(id=reservation_id)
+            reservation.update_payment_status(code='PP')
+
+            return render(request, self.template_name, { 'response_data': response_data, 'qr_url': qr_url })
         else:
             return http.JsonResponse('Failed to confirm Webpay transaction')
 
 
 def book_room(request, room_id, start_date, days_of_stay) -> Reservation | None:
-    # TODO: check if room is available
     room_instance = Room.objects.get(id=room_id)
 
     if room_instance:
+        payment_status_instance = ReservationPaymentStatus.objects.get(code='NP')
+        if not payment_status_instance: return None
+
         reservation, _ = Reservation.objects.get_or_create(
             user = request.user,
             room = room_instance,
             start_date = start_date,
             days_of_stay = days_of_stay,
-            is_paid = False,
+            payment_status = payment_status_instance,
+            deposit_percentage = 30
         )
         reservation.save()
 
@@ -169,3 +178,25 @@ def delete_reservation(request, reservation_id):
     room.delete()
 
     return redirect('reservations:list')
+
+
+@method_decorator(login_required, name='dispatch')
+class DetailsReservationView(View):
+    template_name = 'reservations/admin/details.html'
+
+    def get(self, request, *args, **kwargs):
+        if 'id' in kwargs:
+            reservation_id = kwargs.get('id')
+
+        elif 'reservation' in request.GET:
+            try:
+                signed_data = request.GET.get('reservation')
+                reservation_id = signing.loads(signed_data)
+
+            except signing.BadSignature: raise Http404('Invalid Reservation ID')
+
+        else:
+            raise Http404("Reservation ID not provided")
+
+        reservation: Reservation = get_object_or_404(Reservation, id=reservation_id)
+        return render(request, self.template_name, { 'reservation': reservation })

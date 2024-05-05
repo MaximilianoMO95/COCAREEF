@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load humanize %}
+
+{% block title %}Hotel Reef - Detalles Sobre Reservacion{% endblock title %}
+
+{% block content %}
+<main class="background-bg">
+    <div class="glass-container">
+        {% include 'navbar.html' with title='Detalles Sobre Reservacion' backurl='/admin-panel' %}
+        <div class="d-flex w-100 min-h-60vh col justify-content-center align-items-center mt-2">
+            <div class="card-container">
+                <h1 class="text-align-center w-100 mb-2">{{ reservation.room.name }}</h1>
+                <div class="d-flex col g-1 flex-wrap">
+                    <h2>Datos Reservacion</h2>
+                    <p>Fecha De Inicio: {{ reservation.start_date }}</p>
+                    <p>Dias Reservados: {{ reservation.days_of_stay }}</p>
+                    <p>Estado De Pago: {{ reservation.payment_status.name }}</p>
+                    <p>Porcentaje Abonado: {{ reservation.deposit_percentage }}%</p>
+                    <p class="mt-1">Cantidad Por Pagar: <b>${{ reservation.calc_remaining_amount|intcomma }} CPL</b></p>
+                </div>
+                <div class="d-flex col g-1 flex-wrap mt-2">
+                    <h2>Datos Cliente</h2>
+                    <p>Nombre: {{ reservation.user.first_name }} {{ reservation.user.last_name }}</p>
+                    <p>Email: {{ reservation.user.email }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock content %}
+
+{% block head %}
+<style>
+    .card-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: start;
+        gap: 1em;
+        background: var(--bg-primary);
+        border-radius: var(--border-radius);
+        color: var(--text-color-primary);
+        padding: 2em;
+
+        & p {
+            font-size: 1.3em;
+        }
+    }
+</style>
+{% endblock head %}

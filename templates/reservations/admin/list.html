@@ -7,28 +7,28 @@
     <div class="glass-container">
         {% include 'navbar.html' with title='Lista De Reservaciones' backurl='/admin-panel' %}
 
+        <div class="d-flex justify-content-center align-items-center min-h-60vh">
         {% if object_list %}
-            <div class="d-flex justify-content-center align-items-center min-h-60vh">
-                <div class="card-list-ctn mt-3">
-                {% for reservation in object_list %}
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="d-flex g-1 col">
-                                <h1>{{ reservation.start_date }}</h1>
-                                <h2>{{ reservation.room.name }}</h2>
-                            </div>
-                            <div class="buttons d-flex row g-1 mt-2">
-                                <a role="button" href="{% url 'reservations:delete' reservation.id %}" class="btn-secondary">Eliminar</a>
-                                <a href="{% url 'reservations:edit' reservation.id %}" role="button" class="btn-primary">Editar</a>
-                            </div>
+            <div class="card-list-ctn mt-3">
+            {% for reservation in object_list %}
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex g-1 col">
+                            <h1>{{ reservation.start_date }}</h1>
+                            <h2>{{ reservation.room.name }}</h2>
+                        </div>
+                        <div class="buttons d-flex row g-1 mt-2">
+                            <a role="button" href="{% url 'reservations:delete' reservation.id %}" class="btn-secondary">Eliminar</a>
+                            <a href="{% url 'reservations:edit' reservation.id %}" role="button" class="btn-primary">Editar</a>
                         </div>
                     </div>
-                {% endfor %}
                 </div>
+            {% endfor %}
             </div>
         {% else %}
             <h1>No Se Encontro Ninguna Reserva</h1>
         {% endif %}
+        </div>
     </div>
 </main>
 {% endblock content %}

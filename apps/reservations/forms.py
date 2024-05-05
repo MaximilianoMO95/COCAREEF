@@ -10,4 +10,4 @@ class OrderCreateForm(forms.Form):
 class ReservationForm(forms.ModelForm):
     class Meta:
         model = Reservation
-        fields = ['start_date', 'days_of_stay', 'room', 'user', 'is_paid']
+        fields = ['start_date', 'days_of_stay', 'room', 'user', 'payment_status']
