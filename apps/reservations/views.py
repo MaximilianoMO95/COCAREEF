@@ -57,7 +57,7 @@ class ListReservationsView(PermissionRequiredMixin, ListView):
 @method_decorator(login_required, name='dispatch')
 class CreateReservationView(PermissionRequiredMixin, View):
     template_name = 'reservations/admin/create.html'
-    permission_required = 'reservations.can_create_reservation'
+    permission_required = 'reservations.can_add_reservation'
 
     def get(self, request):
         form = ReservationForm()
@@ -84,7 +84,7 @@ class CreateReservationView(PermissionRequiredMixin, View):
 @method_decorator(login_required, name='dispatch')
 class EditReservationView(PermissionRequiredMixin, View):
     template_name = 'reservations/admin/update.html'
-    permission_required = 'reservations.can_edit_reservation'
+    permission_required = 'reservations.can_change_reservation'
 
     def get(self, request, reservation_id):
         reservation = get_object_or_404(Reservation, id=reservation_id)
