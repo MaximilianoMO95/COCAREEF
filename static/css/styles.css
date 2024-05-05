@@ -57,6 +57,11 @@ main {
     text-align: center;
 }
 
+button[disabled] {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
 :is(button, a):hover {
     filter: brightness(1.3);
 }
@@ -252,6 +257,10 @@ select {
 .btn-secondary {
     background: none;
     border: 0.15em solid var(--btn-secondary-bg, darkgray);
+
+    &:hover {
+        background: rgba(0, 0, 0, 0.16);
+    }
 }
 
 .btn-secondary.btn-fill {
