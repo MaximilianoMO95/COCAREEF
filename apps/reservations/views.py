@@ -206,7 +206,7 @@ class PaymentResultView(View):
 
         reject_token = 'TBK_TOKEN'
         if reject_token in query_params:
-            return render(request, self.template_name, { 'pay_status': 'CANCELADO' })
+            return redirect('reservations:payment')
 
         token = 'token_ws'
         if token in query_params:
