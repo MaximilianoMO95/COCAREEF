@@ -1,6 +1,8 @@
 from django.core import signing
 from django.db import models
-from datetime import date, timedelta
+from datetime import date
+
+from django.utils import timezone
 
 from apps.rooms.models import Room
 from apps.users.models import User
@@ -15,7 +17,7 @@ class ReservationPaymentStatus(models.Model):
 
 class ReservationQuerySet(models.QuerySet):
     def is_room_available(self, room: Room, check_in_date: date, days_of_stay: int) -> bool:
-        check_out_date = check_in_date + timedelta(days=days_of_stay)
+        check_out_date = check_in_date + timezone.timedelta(days=days_of_stay)
         overlapping_reservations = self.filter(
             room=room,
             start_date__lt=check_out_date,
@@ -26,6 +28,13 @@ class ReservationQuerySet(models.QuerySet):
         return is_available
 
 
+    def delete_expired_reservations(self):
+        # TODO: edge-case: the user is paying during scheduled deletation
+        # posible solution: Add some field called "is_user_paying" every timee the user enter to the payment form
+        expired_reservations = Reservation.objects.filter(is_reservation_expired=True)
+        expired_reservations.delete()
+
+
 class Reservation(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     room = models.ForeignKey(Room, on_delete=models.CASCADE)
@@ -33,8 +42,20 @@ class Reservation(models.Model):
     days_of_stay = models.PositiveIntegerField(default=1)
     deposit_percentage = models.PositiveSmallIntegerField(default=30)
     payment_status = models.ForeignKey(ReservationPaymentStatus, to_field='code', on_delete=models.PROTECT, default='NP')
+    created_at = models.DateTimeField(auto_now_add=True)
 
     objects = ReservationQuerySet.as_manager()
+
+    def is_fully_paid(self) -> bool:
+        return (self.payment_status.code == 'FP')
+
+
+    def is_expired(self, timeout_period) -> bool:
+        timeout_period = timezone.timedelta(hours=24)
+        diff = timezone.now() - self.created_at
+
+        return (diff > timeout_period)
+
 
     def update_payment_status(self, code: str) -> None:
         try:
@@ -43,23 +64,26 @@ class Reservation(models.Model):
             raise ValueError(f"Payment status with code '{code}' does not exist.")
 
         self.payment_status = payment_status
+        if payment_status.code == 'FP':
+            self.deposit_percentage = 100
+
         self.save()
 
 
     def calc_total_amount(self) -> int:
-        total: int = (self.room.price * self.days_of_stay)
+        total: int = self.room.price * self.days_of_stay
         return total
 
 
     def calc_deposit_amount(self) -> int:
-        total: int = (self.room.price * self.days_of_stay) * self.deposit_percentage
+        total: int = self.calc_total_amount() * self.deposit_percentage
         result = int(total / 100)
 
         return result
 
 
     def calc_remaining_amount(self) -> int:
-        if self.payment_status == 'NP':
+        if self.payment_status.code == 'NP':
             total = self.calc_total_amount()
             return total
 

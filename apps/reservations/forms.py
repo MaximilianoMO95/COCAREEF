@@ -10,4 +10,10 @@ class OrderCreateForm(forms.Form):
 class ReservationForm(forms.ModelForm):
     class Meta:
         model = Reservation
-        fields = ['start_date', 'days_of_stay', 'room', 'user', 'payment_status']
+        fields = ['start_date', 'days_of_stay', 'room', 'user', 'payment_status', 'deposit_percentage']
+
+
+class ReservationFilterForm(forms.Form):
+    start_date_from = forms.DateField(label='From', required=False, widget=forms.DateInput(attrs={ 'type': 'date' }))
+    start_date_to = forms.DateField(label='To', required=False, widget=forms.DateInput(attrs={ 'type': 'date' }))
+
