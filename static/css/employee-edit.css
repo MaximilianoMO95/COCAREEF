@@ -12,3 +12,27 @@
     border-radius: 10px; 
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); 
 }
+
+.tittle-edit {
+    padding-bottom: 30px;
+    padding-left: 15px;
+}
+
+.list-edit
+{
+    text-decoration: none;
+    font-size: 30px;
+    color: #8f7396; 
+}
+
+.Edit-tittle {
+    padding-bottom: 30px;
+}
+
+.Edit-box {
+    padding: 10px;
+}
+.Edit-box button {
+    margin-top: 20px;
+    margin-left: 50px;
+}

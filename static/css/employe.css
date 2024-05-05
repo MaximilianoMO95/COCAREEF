@@ -1,35 +1,48 @@
 .employe-container {
     width: 40vw;
-    margin: 0 auto; 
-    height: auto; 
+    margin: 0 auto;
     display: flex;
-    flex-direction: column; 
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    text-align: center; 
-    background-color: rgba(0, 0, 0, 0.541); 
-    padding: 2rem; 
-    border-radius: 10px; 
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); 
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.541);
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
 .form-field {
-    width: 100%; 
-    margin-bottom: 1.5rem; 
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-bottom: 1.5rem;
+}
+
+.form-field label {
+    margin-bottom: 0.5rem; /* Espacio entre la etiqueta y el campo de entrada */
+}
+
+.form-field input[type="text"],
+.form-field input[type="email"],
+.form-field input[type="password"] {
+    width: 100%; /* Hacer que los campos de entrada ocupen todo el ancho */
+    padding: 0.5rem; /* Espaciado interno */
 }
 
 input[type="submit"] {
-    background-color: #56465a; 
+    background-color: #56465a;
     border: none;
     border-radius: 5px;
-    color: #fff; 
+    color: #fff;
     cursor: pointer;
     font-size: 1.2rem;
-    padding: 0.5rem 2rem; 
+    padding: 0.5rem 2rem;
     text-decoration: none;
-    transition: background-color 0.3s ease; 
+    transition: background-color 0.3s ease;
+    width: 100%; /* Hacer que el botón ocupe todo el ancho */
 }
 
 input[type="submit"]:hover {
-    background-color: #78627e; 
+    background-color: #78627e;
 }
