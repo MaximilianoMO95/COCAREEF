@@ -4,34 +4,40 @@ from apps.rooms.models import (Room, RoomType);
 from faker import Faker
 
 class Command(BaseCommand):
-    help = 'Creates a set of fake data'
+    help = 'Manage rooms from command line'
 
     def add_arguments(self, parser):
-        # Positional arguments
-        parser.add_argument('count', nargs=1, type=int)
-
         # Named (optional) arguments
         parser.add_argument(
             '--delete-all',
             action='store_true',
             help='Delete all rooms',
         )
+        parser.add_argument(
+            '--create-fake-rooms',
+            action='store_true',
+            help='Creates fake rooms <ex: --create-fake-rooms 20>'
+        )
+        parser.add_argument('count', nargs=1, type=int, default=1, help='Number of fake rooms to create')
 
 
     def handle(self, *args, **options):
+        match options:
+            case { 'delete_all': True }: self.delete_all()
+            case { 'create_fake_rooms': True }: self.create_fake_rooms(options['count'][0])
+            case _: self.stdout.write(self.style.WARNING('No action specified. Use --help for more options'))
+
+
+    def delete_all(self):
+        Rooms.objects.all().delete()
+        Rooms.objects.all().delete()
+        self.stdout.write(self.style.SUCCESS('All users deleted'))
+
+
+    def create_fake_rooms(self, count):
         faker = Faker()
 
-        if options['delete_all']:
-            Room.objects.all().delete()
-            RoomType.objects.all().delete()
-            self.stdout.write(self.style.SUCCESS('All rooms deleted'))
-
-        try:
-            count = int(options['count'][0])
-        except ValueError:
-            raise CommandError('"{}" is not a number'.format(options['count'][0]))
-
-        room_types = ['vip', 'tourist']
+        room_types = ['tourist', 'premium']
         for i in range(count):
             room_type = random.choice(room_types)
             room_type_instance, _ = RoomType.objects.get_or_create(name=room_type)
@@ -47,4 +53,3 @@ class Command(BaseCommand):
             )
 
         self.stdout.write(self.style.SUCCESS('Successfully created [%s] fake rooms' % count))
-
