@@ -1,11 +1,13 @@
 {% extends "base.html" %}
+{% load i18n %}
 
-{% block title %}Hotel Reef - Registro{% endblock title %}
+{% block title %}{% trans "Hotel Reef - Registration" %}{% endblock title %}
 
 {% block content %}
 <main class="background-bg">
     <div class="glass-container">
-        {% include 'navbar.html' with title='Registro' backurl='/login' %}
+        {% trans "Registration" as title %}
+        {% include 'navbar.html' with title=title backurl='/login' %}
 
         <form class="mt-2" method="post">
             {% csrf_token %}
@@ -19,7 +21,7 @@
                 </div>
             {% endfor %}
 
-            <button type="submit" class="btn-primary">Registrarse</button>
+            <button type="submit" class="btn-primary">{% trans "Create Account" %}</button>
         </form>
     </div>
 </main>

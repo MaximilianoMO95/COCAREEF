@@ -1,14 +1,15 @@
 {% extends "base.html" %}
+{% load i18n %}
 
-{% block title %}Hotel Reef Login{% endblock title %}
+{% block title %}{% trans "Hotel Reef - Login" %}{% endblock title %}
 
 {% block content %}
 <main class="container background-bg">
     <div class="login-container">
         <form class="d-flex col g-1 align-items-center" method="POST">
-            <img src="/static/logo.svg" width="200" alt="Logo de hotel reef, representado por 4 estrellas doradas y corales">
+            <img src="/static/logo.svg" width="200" aria-hidden="true">
             {% csrf_token %}
-            <h1 class="text-align-center my-1">ACCESO</h1>
+            <h1 class="text-align-center my-1">{% trans "ACCESS" %}</h1>
 
             {% for field in form %}
                 <div class="input-group fmt-upper">
@@ -21,7 +22,7 @@
             {% endfor %}
 
             {% if messages %}
-            <div class="d-flex" aria-label="Lista de mensajes de errores">
+            <div class="d-flex" aria-label="{% trans "Error Messages List" %}">
                 {% for message in messages %}
                 <p class="error">{{ message }}</p>
                 {% endfor %}
@@ -29,8 +30,8 @@
             {% endif %}
 
             <div class="d-flex col g-2 mt-3">
-                <button type="submit" class="btn-primary">Iniciar Sesion</button>
-                <a href="{% url 'users:signin' %}" class="btn-secondary">Registrarse</a>
+                <button type="submit" class="btn-primary">{% trans "Login" %}</button>
+                <a href="{% url 'users:signin' %}" class="btn-secondary">{% trans "Create An Account" %}</a>
             </div>
         </form>
     </div>

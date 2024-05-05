@@ -1,7 +1,8 @@
 {% extends "base.html" %}
 {% load static %}
+{% load i18n %}
 
-{% block title %}Hotel Reef - Vista Admin{% endblock title %}
+{% block title %}{% trans "Hotel Reef - Admin View" %}{% endblock title %}
 
 {% block head %}
 <link rel="stylesheet" href="{% static 'css/admin-panel.css' %}">
@@ -10,27 +11,28 @@
 {% block content %}
 <main class="container background-bg">
     <div class="glass-container">
-        {% include 'navbar.html' with title='Bienvenid@' %}
+        {% trans "Welcome" as title %}
+        {% include 'navbar.html' with title=title %}
 
         <div class="admin-container">
             <div class="d-flex row g-2 flex-wrap w-80vw align-items-center justify-content-center">
                 <div>
-                    <a href="{% url 'users:employee' %}" class="card-link" aria-label="Ir a crear un nuevo empleado">
+                    <a href="{% url 'users:employee' %}" class="card-link" aria-label="{% trans "Go an create a new employee" %}">
                         <div class="card card-nuevo-usuario">
                             <div class="card-body">
                                 <img src="{% static 'img/newuser.png' %}" width="200" aria-hidden="true" />
-                                <h2 class="card-title">Nuevo Empleado</h2>
+                                <h2 class="card-title">{% trans "New Employee" %}</h2>
                             </div>
                         </div>
                     </a>
                 </div>
 
                 <div>
-                    <a href="{% url 'users:employee_list' %}" class="card-link" aria-label="Ir a editar un empleado">
+                    <a href="{% url 'users:employee_list' %}" class="card-link" aria-label="{% trans "Go and edit an employee" %}">
                         <div class="card card-editar-usuario">
                             <div class="card-body">
                                 <img src="{% static 'img/edituser.png' %}" width="200" aria-hidden="true" />
-                                <h2 class="card-title">Editar Empleado</h2>
+                                <h2 class="card-title">{% trans "Edit Employee" %}</h2>
                             </div>
                         </div>
                     </a>
@@ -39,22 +41,22 @@
 
             <div class="d-flex row g-2 mt-2 flex-wrap w-80vw align-items-center justify-content-center">
                 <div>
-                    <a href="{% url 'reservations:list' %}" class="card-link" aria-label="Ir a modificar una reserva">
+                    <a href="{% url 'reservations:list' %}" class="card-link" aria-label="{% trans "Go an manage reservations" %}">
                         <div class="card card-modificar-reserva">
                             <div class="card-body">
                                 <img src="{% static 'img/bed.png' %}" width="200" aria-hidden="true" />
-                                <h2 class="card-title">Modificar Reserva</h2>
+                                <h2 class="card-title">{% trans "Manage Reservations" %}</h2>
                             </div>
                         </div>
                     </a>
                 </div>
 
                 <div>
-                    <a href="{% url 'rooms:catalogue' %}" class="card-link" aria-label="Ir a editar el catalogo de habitaciones">
+                    <a href="{% url 'rooms:catalogue' %}" class="card-link" aria-label="{% trans "Go an manage rooms catalogue" %}">
                         <div class="card card-catalogo-habitaciones">
                             <div class="card-body">
                                 <img src="{% static 'img/catalogo.png' %}" width="200" aria-hidden="true" />
-                                <h2 class="card-title">Catalogo de Habitaciones</h2>
+                                <h2 class="card-title">{% trans "Rooms Catalogue" %}</h2>
                             </div>
                         </div>
                     </a>
@@ -64,7 +66,7 @@
 
         <form action="{% url 'users:logout' %}" method="post">
             {% csrf_token %}
-            <button type="submit" class="btn-primary">Cerrar Sesion</button>
+            <button type="submit" class="btn-primary">{% trans "Log Out" %}</button>
         </form>
     </div>
 </main>
