@@ -3,13 +3,14 @@ from django.db import models
 from datetime import date
 
 from django.utils import timezone
+from django.utils.translation import gettext_lazy as _
 
 from apps.rooms.models import Room
 from apps.users.models import User
 
 class ReservationPaymentStatus(models.Model):
-    code = models.CharField(max_length=2, unique=True)
-    name = models.CharField(max_length=50)
+    code = models.CharField(_('code'), max_length=2, unique=True)
+    name = models.CharField(_('name'), max_length=50)
 
     def __str__(self):
         return self.name
@@ -36,13 +37,20 @@ class ReservationQuerySet(models.QuerySet):
 
 
 class Reservation(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    room = models.ForeignKey(Room, on_delete=models.CASCADE)
-    start_date = models.DateField()
-    days_of_stay = models.PositiveIntegerField(default=1)
-    deposit_percentage = models.PositiveSmallIntegerField(default=30)
-    payment_status = models.ForeignKey(ReservationPaymentStatus, to_field='code', on_delete=models.PROTECT, default='NP')
-    created_at = models.DateTimeField(auto_now_add=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name=_('user'))
+    room = models.ForeignKey(Room, on_delete=models.CASCADE, verbose_name=_('room'))
+    payment_status = models.ForeignKey(
+        ReservationPaymentStatus,
+        to_field='code',
+        on_delete=models.PROTECT,
+        default='NP',
+        verbose_name=_('payment_status')
+    )
+
+    start_date = models.DateField(_('start_date'))
+    days_of_stay = models.PositiveIntegerField(_('days_of_stay'), default=1)
+    deposit_percentage = models.PositiveSmallIntegerField(_('deposit_percentage'), default=30)
+    created_at = models.DateTimeField(_('created_at'), auto_now_add=True)
 
     objects = ReservationQuerySet.as_manager()
 
