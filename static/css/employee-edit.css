@@ -1,5 +1,5 @@
 .employe-container {
-    width: 40vw;
+    width: 55vw;
     margin: 0 auto; 
     height: auto; 
     display: flex;
@@ -30,9 +30,17 @@
 }
 
 .Edit-box {
-    padding: 10px;
+    padding-top: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1em;
+    flex-direction: row; 
+    text-align: center;
+    border-radius: 10px; 
+   
 }
 .Edit-box button {
-    margin-top: 20px;
-    margin-left: 50px;
+    margin-top: 10px;
+    margin-right: 20px;
 }

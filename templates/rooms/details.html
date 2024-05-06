@@ -10,11 +10,37 @@
         {% if room %}
             <img alt="{{ room.description }}" src="https://picsum.photos/200" />
             <h1>{{ room.name }}</h1>
-            <h2>Price: {{ room.price }}</h2>
-            <p>{{ room.description }}</p>
-
+            <div class="room-description">
+                <p>{{ room.description }}</p>
+            </div>
+            <div class="room-price">
+                <h2>Price: {{ room.price }}</h2>
+            </div>
             <a class="btn-primary" href="{% url 'reservations:checkout' room.id %}">{%trans "Book now" %}</a>
         {% endif %}
     </div>
 </main>
 {% endblock content %}
+{% block head %}
+<style>
+   
+
+.glass-container img {
+    max-width: 100%;
+    border-radius: 10px; 
+
+}
+
+.room-description,
+.room-price {
+    padding: 1rem;
+    border-radius: 10px;
+    background-color: #fff;
+    margin-top: 1rem;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    position: relative;
+    color: black;
+   
+}
+</style>
+{% endblock head %}
