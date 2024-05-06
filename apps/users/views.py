@@ -69,7 +69,8 @@ class UserRegistrationView(View):
             customer_group, _ = Group.objects.get_or_create(name='customer')
             user.groups.add(customer_group)
 
-            customer = Customer(user=user)
+            dni = form.cleaned_data['dni']
+            customer = Customer(user=user, dni=dni)
             customer.save()
 
             login(request, user)
@@ -99,9 +100,12 @@ class EmployeeRegistrationView(PermissionRequiredMixin, View):
             employee_group, _ = Group.objects.get_or_create(name='employee')
             user.groups.add(employee_group)
 
+            rut = form.cleaned_data['rut']
+            phone_number = form.cleaned_data['phone_number']
             employee = Employee.objects.create(
                 user=user,
-                rut=form.cleaned_data['rut']
+                rut=rut,
+                phone_number=phone_number
             ); employee.save()
 
             return redirect('users:employee_list')
