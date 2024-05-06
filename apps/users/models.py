@@ -16,6 +16,7 @@ class User(AbstractUser):
 class Employee(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name=_('user'))
     rut  = models.CharField(max_length=15, blank=False)
+    phone_number = models.CharField(_('phone_numer'), max_length=20, blank=True)
 
     class Meta:
         permissions = [
