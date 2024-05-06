@@ -1,0 +1,534 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-06 00:12+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? "
+"1 : 2;\n"
+
+#: apps/reservations/forms.py:7 apps/reservations/forms.py:16
+#: templates/reservations/admin/details.html:18
+msgid "Start Date"
+msgstr "Fecha De Inicio"
+
+#: apps/reservations/forms.py:8 templates/reservations/admin/details.html:19
+msgid "Days Of Stay"
+msgstr "Dias De Estadia"
+
+#: apps/reservations/forms.py:17
+#, fuzzy
+#| msgid "Days Of Stay"
+msgid "Days of Stay"
+msgstr "Dias De Estadia"
+
+#: apps/reservations/forms.py:18
+msgid "Room"
+msgstr "Habitacion"
+
+#: apps/reservations/forms.py:19 apps/users/forms.py:57
+msgid "User"
+msgstr "Usuario"
+
+#: apps/reservations/forms.py:20 templates/reservations/admin/details.html:21
+#: templates/reservations/payment_status.html:16
+msgid "Payment Status"
+msgstr "Estado de pago"
+
+#: apps/reservations/forms.py:21 templates/reservations/admin/details.html:20
+msgid "Deposit Percentage"
+msgstr "Porcentaje de deposito"
+
+#: apps/reservations/forms.py:26
+msgid "From"
+msgstr "De"
+
+#: apps/reservations/forms.py:27
+msgid "To"
+msgstr "Hasta"
+
+#: apps/reservations/models.py:12
+msgid "code"
+msgstr "Codigo"
+
+#: apps/reservations/models.py:13 apps/rooms/models.py:5
+#: apps/rooms/models.py:12
+msgid "name"
+msgstr "Nombre"
+
+#: apps/reservations/models.py:40 apps/users/models.py:12
+#: apps/users/models.py:17
+msgid "user"
+msgstr "usuario"
+
+#: apps/reservations/models.py:41
+msgid "room"
+msgstr "habitacion"
+
+#: apps/reservations/models.py:47
+msgid "payment_status"
+msgstr "Estado de pago"
+
+#: apps/reservations/models.py:50
+msgid "start_date"
+msgstr "fecha_de_inicio"
+
+#: apps/reservations/models.py:51
+msgid "days_of_stay"
+msgstr "dias_agendados"
+
+#: apps/reservations/models.py:52
+msgid "deposit_percentage"
+msgstr "porcentaje_de_deposito"
+
+#: apps/reservations/models.py:53
+msgid "created_at"
+msgstr "creado_el"
+
+#: apps/rooms/forms.py:10 templates/reservations/admin/details.html:26
+msgid "Name"
+msgstr "Nombre"
+
+#: apps/rooms/forms.py:11
+msgid "Capacity"
+msgstr ""
+
+#: apps/rooms/forms.py:12
+msgid "Description"
+msgstr ""
+
+#: apps/rooms/forms.py:13
+msgid "Price"
+msgstr ""
+
+#: apps/rooms/forms.py:14 apps/rooms/forms.py:19
+#, fuzzy
+#| msgid "Room"
+msgid "Room Type"
+msgstr "Habitacion"
+
+#: apps/rooms/models.py:13
+msgid "capacity"
+msgstr ""
+
+#: apps/rooms/models.py:14
+msgid "description"
+msgstr ""
+
+#: apps/rooms/models.py:15
+msgid "price"
+msgstr ""
+
+#: apps/rooms/models.py:16
+#, fuzzy
+#| msgid "room"
+msgid "room_type"
+msgstr "habitacion"
+
+#: apps/users/forms.py:9 apps/users/forms.py:35
+msgid "First Name"
+msgstr ""
+
+#: apps/users/forms.py:9 apps/users/forms.py:35
+msgid "Required. Please type your name."
+msgstr ""
+
+#: apps/users/forms.py:10 apps/users/forms.py:36
+#, fuzzy
+#| msgid "Name"
+msgid "Last Name"
+msgstr "Nombre"
+
+#: apps/users/forms.py:10 apps/users/forms.py:36
+msgid "Required. Please type your last name."
+msgstr ""
+
+#: apps/users/forms.py:11
+msgid "Required. Please type your dni."
+msgstr ""
+
+#: apps/users/forms.py:17 apps/users/forms.py:44
+#, fuzzy
+#| msgid "User"
+msgid "Username"
+msgstr "Usuario"
+
+#: apps/users/forms.py:18 apps/users/forms.py:45
+msgid "Password"
+msgstr ""
+
+#: apps/users/forms.py:19 apps/users/forms.py:46
+msgid "Confirm Password"
+msgstr ""
+
+#: apps/users/forms.py:28
+#, fuzzy
+#| msgid "name"
+msgid "username"
+msgstr "Nombre"
+
+#: apps/users/forms.py:29
+msgid "password"
+msgstr ""
+
+#: apps/users/forms.py:38 apps/users/forms.py:52
+msgid "Phone Number"
+msgstr ""
+
+#: apps/users/models.py:7
+msgid "first_name"
+msgstr ""
+
+#: apps/users/models.py:8
+#, fuzzy
+#| msgid "name"
+msgid "last_name"
+msgstr "Nombre"
+
+#: core/settings.py:128
+msgid "English"
+msgstr "Ingles"
+
+#: core/settings.py:129
+msgid "Spanish"
+msgstr "Español"
+
+#: templates/navbar.html:18
+msgid "Switch Language"
+msgstr "Cambiar idioma"
+
+#: templates/navbar.html:34 templates/users/admin/panel.html:70
+msgid "Log Out"
+msgstr "Cerrar sesion"
+
+#: templates/reservations/admin/create.html:4
+#: templates/reservations/admin/update.html:4
+msgid "Hotel Reef - Edit Reservation"
+msgstr "Hotel Reef - Editar reservacion"
+
+#: templates/reservations/admin/create.html:9
+msgid "Create New Reservation"
+msgstr "Crear nueva reservacion"
+
+#: templates/reservations/admin/create.html:25
+#: templates/reservations/admin/update.html:27
+#: templates/rooms/admin/update.html:27
+#: templates/users/admin/employee_edit.html:16
+msgid "Save Changes"
+msgstr "Guardar cambios"
+
+#: templates/reservations/admin/details.html:5
+msgid "Hotel Reef - Reservation Details"
+msgstr "Hotel Reef - Detalles de la reservacion"
+
+#: templates/reservations/admin/details.html:10
+msgid "Reservation Details"
+msgstr ""
+
+#: templates/reservations/admin/details.html:17
+msgid "Reservation Data"
+msgstr "Detalles de la reservacion"
+
+#: templates/reservations/admin/details.html:22
+msgid "Remaining Debt"
+msgstr "Deuda"
+
+#: templates/reservations/admin/details.html:25
+msgid "Client Data"
+msgstr "Data del cliente"
+
+#: templates/reservations/admin/details.html:27
+msgid "Email"
+msgstr "Email"
+
+#: templates/reservations/admin/details.html:33
+msgid "Mark As Fully Paid"
+msgstr "Marcar como totalmente pagado"
+
+#: templates/reservations/admin/list.html:4
+msgid "Hotel Reef - Reservation List"
+msgstr "Hotel Reef - Lista de reservaciones"
+
+#: templates/reservations/admin/list.html:9
+#: templates/reservations/admin/list.html:26
+msgid "Reservations List"
+msgstr "Lista de reservaciones"
+
+#: templates/reservations/admin/list.html:20
+#: templates/rooms/admin/catalogue.html:22 templates/rooms/catalogue.html:21
+msgid "Apply"
+msgstr "Aplicar"
+
+#: templates/reservations/admin/list.html:27
+msgid "New Reservation"
+msgstr "Nueva reservacion"
+
+#: templates/reservations/admin/list.html:38
+#: templates/reservations/admin/update.html:26
+#: templates/rooms/admin/update.html:26
+msgid "Delete"
+msgstr "Eliminar"
+
+#: templates/reservations/admin/list.html:39
+#: templates/rooms/admin/catalogue.html:40
+msgid "Edit"
+msgstr "Editar"
+
+#: templates/reservations/admin/list.html:48
+#: templates/rooms/admin/catalogue.html:48 templates/rooms/catalogue.html:42
+msgid "Previus"
+msgstr "Anterior"
+
+#: templates/reservations/admin/list.html:56
+#: templates/rooms/admin/catalogue.html:56 templates/rooms/catalogue.html:50
+msgid "Next"
+msgstr "Siguente"
+
+#: templates/reservations/admin/list.html:63
+msgid "Couldn't found any reservation yet"
+msgstr "No se encontro ninguna reservacion"
+
+#: templates/reservations/admin/update.html:9
+msgid "Edit Reservation"
+msgstr "Editar reservacion"
+
+#: templates/reservations/checkout.html:4
+msgid "Hotel Reef - Checkout"
+msgstr "Hotel Reef - Checkout"
+
+#: templates/reservations/checkout.html:9
+msgid "Create Reservation"
+msgstr "Crear reservacion"
+
+#: templates/reservations/checkout.html:14
+#: templates/reservations/payment_status.html:18
+msgid "Total"
+msgstr "Total"
+
+#: templates/reservations/checkout.html:32 templates/rooms/catalogue.html:33
+msgid "Book This Room"
+msgstr "Agendar ésta habitacion"
+
+#: templates/reservations/confirm-checkout.html:5
+msgid "Hotel Reef - Confirm Reservation"
+msgstr "Hotel Reef - Confirmar reservacion"
+
+#: templates/reservations/confirm-checkout.html:12
+msgid "Total Payment Amount"
+msgstr "Total a pagar"
+
+#: templates/reservations/confirm-checkout.html:15
+#, fuzzy
+#| msgid "Reservation Data"
+msgid "Reservation Payment"
+msgstr "Detalles de la reservacion"
+
+#: templates/reservations/confirm-checkout.html:22
+#, fuzzy
+#| msgid "Create Reservation"
+msgid "Cancel Reservation"
+msgstr "Crear reservacion"
+
+#: templates/reservations/payment_status.html:7
+msgid "Hotel Reef - Payment Status"
+msgstr "Hotel Reef - Estado de pago"
+
+#: templates/reservations/payment_status.html:13
+msgid "Receipt"
+msgstr "Boleta"
+
+#: templates/reservations/payment_status.html:17
+msgid "Buy Order"
+msgstr "Orden de compra"
+
+#: templates/reservations/payment_status.html:21
+msgid "QR Code"
+msgstr "Codigo QR"
+
+#: templates/reservations/payment_status.html:26
+msgid "Download Receipt"
+msgstr "Descargar boleta"
+
+#: templates/reservations/payment_status.html:27
+msgid "Go Back To The Main Page"
+msgstr "Ir a la pagina principal"
+
+#: templates/rooms/admin/catalogue.html:5 templates/rooms/catalogue.html:5
+#, fuzzy
+#| msgid "Hotel Reef - Reservation Details"
+msgid "Hotel Reef - Catalogo De Habitaciones"
+msgstr "Hotel Reef - Detalles de la reservacion"
+
+#: templates/rooms/admin/catalogue.html:10
+msgid "Manage Rooms Catalogue"
+msgstr "Editar catalogo de habitaciones"
+
+#: templates/rooms/admin/catalogue.html:27
+msgid "Rooms List"
+msgstr "Lista de habitaciones"
+
+#: templates/rooms/admin/catalogue.html:28
+msgid "Add New Room"
+msgstr "Agregar una nueva habitacion"
+
+#: templates/rooms/admin/catalogue.html:65 templates/rooms/catalogue.html:56
+msgid "Couldn't found any room"
+msgstr "No pudimos encontrar ninguna habitacion"
+
+#: templates/rooms/admin/create.html:4
+msgid "Hotel Reef - Add Room"
+msgstr "Hotel Reef - Agregar habitacion"
+
+#: templates/rooms/admin/create.html:9
+msgid "Add A New Room"
+msgstr "Agregar una nueva habitacion"
+
+#: templates/rooms/admin/create.html:25
+msgid "Create Room"
+msgstr "ACrear habitacion"
+
+#: templates/rooms/admin/update.html:4
+msgid "Hotel Reef - Edit Room"
+msgstr "Hotel Reef - Editar habitacion"
+
+#: templates/rooms/admin/update.html:9
+msgid "Edit Room"
+msgstr "Editar habitacion"
+
+#: templates/rooms/catalogue.html:10 templates/users/admin/panel.html:60
+msgid "Rooms Catalogue"
+msgstr "Catalogo de habitaciones"
+
+#: templates/rooms/catalogue.html:34
+msgid "Show Details"
+msgstr "Mostrar detalles"
+
+#: templates/rooms/details.html:3
+#, fuzzy
+#| msgid "Hotel Reef - Reservation Details"
+msgid "Hotel Reef - Room Details"
+msgstr "Hotel Reef - Detalles de la reservacion"
+
+#: templates/rooms/details.html:16
+msgid "Book now"
+msgstr ""
+
+#: templates/users/admin/employee.html:5
+#, fuzzy
+#| msgid "Hotel Reef - Edit Reservation"
+msgid "Hotel Reef - Employee Registration"
+msgstr "Hotel Reef - Editar reservacion"
+
+#: templates/users/admin/employee.html:20
+#, fuzzy
+#| msgid "Create Reservation"
+msgid "Employee Registration"
+msgstr "Crear reservacion"
+
+#: templates/users/admin/employee_edit.html:12
+#: templates/users/admin/panel.html:36
+msgid "Edit Employee"
+msgstr "Editar empleado"
+
+#: templates/users/admin/employee_list.html:13
+#, fuzzy
+#| msgid "New Employee"
+msgid "Employee List"
+msgstr "Nuevo empleado"
+
+#: templates/users/admin/employee_list.html:20
+msgid "No employees in the DB"
+msgstr ""
+
+#: templates/users/admin/panel.html:6
+msgid "Hotel Reef - Admin View"
+msgstr "Hotel Reef - Vista de administrador"
+
+#: templates/users/admin/panel.html:15
+msgid "Welcome"
+msgstr "Bienvenido"
+
+#: templates/users/admin/panel.html:21
+msgid "Go an create a new employee"
+msgstr "Crear un nuevo empleado"
+
+#: templates/users/admin/panel.html:25
+msgid "New Employee"
+msgstr "Nuevo empleado"
+
+#: templates/users/admin/panel.html:32
+msgid "Go and edit an employee"
+msgstr "Editar un empleado"
+
+#: templates/users/admin/panel.html:45
+msgid "Go an manage reservations"
+msgstr "Ir a configurar las reservaciones"
+
+#: templates/users/admin/panel.html:49
+msgid "Manage Reservations"
+msgstr "Configurar reservaciones"
+
+#: templates/users/admin/panel.html:56
+msgid "Go an manage rooms catalogue"
+msgstr "Configurar el catalogo de habitaciones"
+
+#: templates/users/login.html:4
+#, fuzzy
+#| msgid "Hotel Reef - Admin View"
+msgid "Hotel Reef - Login"
+msgstr "Hotel Reef - Vista de administrador"
+
+#: templates/users/login.html:12
+msgid "ACCESS"
+msgstr ""
+
+#: templates/users/login.html:25
+msgid "Error Messages List"
+msgstr ""
+
+#: templates/users/login.html:33
+msgid "Login"
+msgstr ""
+
+#: templates/users/login.html:34
+msgid "Create An Account"
+msgstr ""
+
+#: templates/users/signin.html:4
+#, fuzzy
+#| msgid "Hotel Reef - Reservation List"
+msgid "Hotel Reef - Registration"
+msgstr "Hotel Reef - Lista de reservaciones"
+
+#: templates/users/signin.html:9
+#, fuzzy
+#| msgid "New Reservation"
+msgid "Registration"
+msgstr "Nueva reservacion"
+
+#: templates/users/signin.html:24
+#, fuzzy
+#| msgid "Create Room"
+msgid "Create Account"
+msgstr "ACrear habitacion"
+
+#~ msgid "Pay Reservation"
+#~ msgstr "Pagar reservacion"
+
+#~ msgid "Abort Reservation"
+#~ msgstr "Abortar la reservacion"
+
+#~ msgid "Hotel Reef - Bedroom catalog"
+#~ msgstr "Hotel Reef - Catalogo De Habitaciones"
