@@ -1,3 +1,6 @@
+from django.contrib.admin.options import method_decorator
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.views import View
 from django.contrib.auth.views import LoginView, reverse_lazy
 from django.contrib.auth import login
@@ -36,7 +39,9 @@ class UserLoginView(LoginView):
         return response
 
 
-class AdminPanelView(TemplateView):
+@method_decorator(login_required, name='dispatch')
+class AdminPanelView(PermissionRequiredMixin, TemplateView):
+    permission_required = 'users.can_view_admin_panel'
     template_name = 'users/admin/panel.html'
 
 
@@ -52,6 +57,7 @@ class UserRegistrationView(View):
 
         form = UserRegistrationForm()
         return render(request, self.template_name, { 'form': form })
+
 
     def post(self, request):
         form = UserRegistrationForm(request.POST)
@@ -73,12 +79,15 @@ class UserRegistrationView(View):
         return render(request, self.template_name, { 'form': form })
 
 
-class EmployeeRegistrationView(View):
+@method_decorator(login_required, name='dispatch')
+class EmployeeRegistrationView(PermissionRequiredMixin, View):
     template_name = 'users/admin/employee.html'
+    permission_required = 'users.can_add_employee'
 
     def get(self, request):
         form = EmployeeRegistrationForm()
         return render(request, self.template_name, { 'form': form })
+
 
     def post(self, request):
         form = EmployeeRegistrationForm(request.POST)
@@ -93,27 +102,28 @@ class EmployeeRegistrationView(View):
             employee = Employee.objects.create(
                 user=user,
                 rut=form.cleaned_data['rut']
+            ); employee.save()
 
-            )
-            employee.save()
-
-            login(request, user)
             return redirect('users:employee_list')
 
         return render(request, self.template_name, { 'form': form })
 
 
-class EmployeeListView(ListView):
+@method_decorator(login_required, name='dispatch')
+class EmployeeListView(PermissionRequiredMixin, ListView):
     model = Employee
     template_name = 'users/admin/employee_list.html'
+    permission_required = 'users.can_view_employee'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         return context
 
 
-class EmployeeEditView(View):
+@method_decorator(login_required, name='dispatch')
+class EmployeeEditView(PermissionRequiredMixin, View):
     template_name = 'users/admin/employee_edit.html'
+    permission_required = 'users.can_change_employee'
 
     def get(self, request, rut):
         employee = Employee.objects.get(rut=rut)

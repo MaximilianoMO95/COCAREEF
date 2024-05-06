@@ -73,6 +73,11 @@ class Command(BaseCommand):
         #customer_group, _ = Group.objects.get_or_create(name='customer')
         employee_group, _ = Group.objects.get_or_create(name='employee')
 
+        user_permissions = Permission.objects.filter(
+            content_type__app_label='users',
+            codename__in=['can_view_admin_panel']
+        )
+
         reservation_permissions = Permission.objects.filter(
             content_type__app_label='reservations',
             codename__in=[
@@ -83,6 +88,9 @@ class Command(BaseCommand):
             ]
         )
         for permission in reservation_permissions:
+            employee_group.permissions.add(permission)
+
+        for permission in user_permissions:
             employee_group.permissions.add(permission)
 
         self.stdout.write(self.style.SUCCESS('Permissions set for employee group'))

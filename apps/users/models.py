@@ -7,10 +7,22 @@ class User(AbstractUser):
     first_name = models.CharField(_('first_name'), max_length=30, blank=False)
     last_name = models.CharField(_('last_name'), max_length=30, blank=False)
 
+    class Meta:
+        permissions = [
+            ('can_view_admin_panel', '[Custom] Can view admin panel'),
+        ]
+
 
 class Employee(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name=_('user'))
     rut  = models.CharField(max_length=15, blank=False)
+
+    class Meta:
+        permissions = [
+            ('can_view_employee', '[Custom] Can view employee.'),
+            ('can_add_employee', '[Custom] Can add a new employee.'),
+            ('can_change_employee', '[Custom] Can change a employee.'),
+        ]
 
 
 class Customer(models.Model):
